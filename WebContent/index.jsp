@@ -6,7 +6,7 @@
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	 <meta name="author" content="sebeez">
 	 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-	 <title>Prise de notes</title>
+	 <title>QCM</title>
 
 	<% Integer noCache = (int) (Math.random() * (99999 - 9999)); %>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html" >Prise de notes</a>
+            <a class="navbar-brand" href="index.html" >QCM ENI</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -59,37 +59,30 @@
 
 <div class="container center">
 
-    <div class="col-md-12">
+    <div class="row">
     
-        <h1 class="mt-5">Notes</h1>
+    	<div class="col-12">
+        	<h1 class="mt-5">Validateur de compétence</h1>
 
-        <div class="alert alert-danger" id="alert-message" style="visibility: hidden"></div>
-        <div class="alert alert-info" id="info-message" role="alert" style="visibility: hidden"> </div>
+        	<div class="alert alert-danger" id="alert-message" style="visibility: hidden"></div>
+        	<div class="alert alert-info" id="info-message" role="alert" style="visibility: hidden"> </div>
+        </div>
 
-        <form>
-                <div class="row">
-                        <div class="col-md-11">
-                            <textarea class="form-control" id="txt-note-content" rows="8" style="width: 100%" placeholder="Entrez du texte ici"></textarea>
-                        </div>    
-                        <div class="col-md-1">
-                            <img src="images/icon-delete.png" width="48px" height="48px" onclick="app.deleteCurrentNote()"/><br />
-                            <img src="images/icon-ok.png" width="48px" height="48px" class="mt-2" onclick="app.saveCurrentNote()"/>
-                        </div>     
-                </div>
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                            <input type="text" class="form-control" id="txt-note-name" placeholder="Entrez un nom ici" style="width: 100%">
-                    </div>     
-                </div>
-                <div class="row mt-5">
-                        <div class="col-md-11">
-                            <select size="10" class="form-control" id="select-notes" style="width: 100%;height: 150px" onchange="app.showSelectedNote()"></select>
-                        </div>
-                        <div class="col-md-1">
-                                <img src="images/icon-add.png" width="48px" height="48px" onclick="app.createNote()"/>    
-                        </div>    
-                </div>
-        </form>
+        
+        <div class="col-md-4 offset-md-4">
+        	<form>
+        		<input name="username" type="text" class="form-control"  placeholder="Utilisateur">
+
+        		<input name="password" type="password" class="form-control"  placeholder="Mot de passe">
+
+      			<!--  
+      			<img src="images/icon-ok.png" width="48px" height="48px" class="mt-2" onclick="app.saveCurrentNote()"/>
+      			-->
+            	<button class="btn btn-primary" type="submit">Connexion</button>
+            </form>
+        </div>
+        
+        
     </div>
 </div>
 
