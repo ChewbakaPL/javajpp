@@ -4,5 +4,6 @@ public class SectionTest {
 
 	private int nbQuestionATirer;
 	private Test test;
+	private Theme theme;
 	
 }

@@ -8,6 +8,8 @@ public class Question {
 	private String enonce;
 	private String media;
 	private double points;
+	private Theme theme;
 	private ArrayList<Proposition> propositions;
+	private ArrayList<Epreuve> epreuves;
 	
 }
