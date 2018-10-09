@@ -8,22 +8,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
 
-public class UtilisateurDaoImpl implements UtilisateurDAO {
+import javax.sql.DataSource;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+public class UtilisateurDaoImpl implements UtilisateurDAO {
+	
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	//private static final String INSERT_QUERY = "INSERT INTO Utilisateur(idUtilisateur, nom, email, password, type) VALUES (:idUtilisateur, :nom, :prenom, :email, :password, :type)";
-	//private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=:nom, t.prenom=:prenom, email=:email, password=:password, type=:type WHERE t.idUtilisateur=:idUtilisateur";
+	private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=:nom, t.prenom=:prenom, email=:email, password=:password, type=:type WHERE t.idUtilisateur=:idUtilisateur";
     
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Utilisateur t ORDER BY t.idUtilisateur DESC";
     private static final String SELECT_ONE_QUERY = "SELECT * FROM Utilisateur t WHERE t.idUtilisateur = ?";
-    private static final String INSERT_QUERY = "INSERT INTO Utilisateur(idUtilisateur, nom, email, password, type) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String DELETE_QUERY = "DELETE FROM Utilisateur t WHERE t.idUtilisateur = ?";
-    private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=?, t.prenom=?, email=?, password=?, type=? WHERE t.idUtilisateur=?";
+    private static final String INSERT_QUERY = "INSERT INTO Utilisateur(idUtilisateur, nom, email, password, type) VALUES (?, ?, ?, ?, ?, ?)";
+    //private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=?, t.prenom=?, email=?, password=?, type=? WHERE t.idUtilisateur=?";
     
     private static final String SELECT_ONE_BY_EMAIL_AND_PASSWORD_QUERY = "SELECT * FROM Utilisateur WHERE email=? AND password=?";
     
@@ -31,6 +40,10 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
     
     private UtilisateurDaoImpl() {
         
+    }
+    
+    public void setDataSource(DataSource dataSource) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
     
     public static UtilisateurDaoImpl getInstance() {
@@ -72,41 +85,54 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         return object;
     }
 
-
+//@Override
+//  public void update(Utilisateur object) throws DaoException {
+//        
+//  Connection connection = null;
+//  PreparedStatement statement = null;
+//  ResultSet resultSet = null;
+//  try {
+//      connection = MSSQLConnectionFactory.get();
+//      
+//      statement = connection.prepareStatement(UPDATE_QUERY);
+//      statement.setString(1, object.getNom());
+//      statement.setString(2, object.getPrenom());
+//      statement.setString(3, object.getEmail());
+//      statement.setString(4, object.getPassword());
+//      statement.setString(5, object.getType());
+//      statement.setInt(6, object.getIdUtilisateur());
+//      
+//      statement.executeUpdate();
+//
+//  } catch(SQLException e) {
+//      throw new DaoException(e.getMessage(), e);
+//  } finally {
+//      ResourceUtil.safeClose(resultSet, statement, connection);
+//  }
+//  
+//}
+    
+    
     @Override
-    public void update(Utilisateur object) throws DaoException {
+    public void update(Utilisateur object) {
+        // Adding params using MapSqlParameterSource class
+    	MapSqlParameterSource parameters = new MapSqlParameterSource();
         
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = MSSQLConnectionFactory.get();
-            
-            statement = connection.prepareStatement(UPDATE_QUERY);
-            statement.setString(1, object.getNom());
-            statement.setString(2, object.getPrenom());
-            statement.setString(3, object.getEmail());
-            statement.setString(4, object.getPassword());
-            statement.setString(5, object.getType());
-            statement.setInt(6, object.getIdUtilisateur());
-            
-            //NamedParameterStatement p = new NamedParameterStatement(connection, UPDATE_QUERY);
-            //statement.setString("nom", object.getNom());
-            //statement.setString("prenom", object.getPrenom());
-            //statement.setString("email", object.getEmail());
-            //statement.setString("password", object.getPassword());
-            //statement.setString("type", object.getType());
-            //statement.setInt("idUtilisateur", object.getIdUtilisateur());
-            
-            statement.executeUpdate();
-
-        } catch(SQLException e) {
-            throw new DaoException(e.getMessage(), e);
-        } finally {
-            ResourceUtil.safeClose(resultSet, statement, connection);
+        parameters.addValue("nom", object.getNom())
+        .addValue("prenom", object.getPrenom())
+        .addValue("email", object.getEmail())
+        .addValue("password", object.getPassword())
+        .addValue("type", object.getType())
+        .addValue("idUtilisateur", object.getIdUtilisateur());
+        
+        int status = namedParameterJdbcTemplate.update(UPDATE_QUERY, parameters); 
+        if(status != 0){
+            System.out.println("User data updated for ID " + object.getIdUtilisateur());
+        }else{
+            System.out.println("No User found with ID " + object.getIdUtilisateur());
         }
-        
     }
+    
 
     @Override
     public void delete(Integer id) throws DaoException {
