@@ -15,6 +15,7 @@ import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Utilisateur;
 import qcm.dal.dao.UtilisateurDAO;
+import qcm.dal.factory.JdbcTools;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
@@ -230,7 +231,8 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         Utilisateur object = null;
         
         try {
-            connection = MSSQLConnectionFactory.get();
+            new JdbcTools();
+			connection = JdbcTools.getConnection();
             statement = connection.prepareStatement(SELECT_ONE_BY_EMAIL_AND_PASSWORD_QUERY);
             
             statement.setString(1, email);
