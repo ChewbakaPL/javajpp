@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Theme {
 
-	private int idTheme;
+	private Integer idTheme;
 	private String libelle;
 	
 }

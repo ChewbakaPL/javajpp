@@ -2,7 +2,7 @@ package src.main.java.fr.eni.qcm.bo;
 
 public class SectionTest {
 
-	private int nbQuestionATirer;
+	private Integer nbQuestionATirer;
 	private Test test;
 	private Theme theme;
 	

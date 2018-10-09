@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Epreuve {
 
-	private int idEpreuve;
+	private Integer idEpreuve;
 	private Timestamp dateDebutValidite;
 	private Timestamp dateFinValidite;
-	private int tempsEcoule;
-	private int etat;
-	private double noteObtenu;
-	private int niveauObtenu;
+	private Integer tempsEcoule;
+	private Integer etat;
+	private Double noteObtenu;
+	private Integer niveauObtenu;
 	private ArrayList<QuestionTirage> questionTirages;
 }

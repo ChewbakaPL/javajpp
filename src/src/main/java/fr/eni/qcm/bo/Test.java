@@ -13,9 +13,9 @@ public class Test implements Serializable {
     private Integer idTest;
     private String libelle;
     private String description;
-    private int duree;
-    private double seuilHaut;
-    private double seuilBas;
+    private Integer duree;
+    private Double seuilHaut;
+    private Double seuilBas;
     private ArrayList<SectionTest> sectionTests;
     
     

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Question {
 
-	private int idQuestion;
+	private Integer idQuestion;
 	private String enonce;
 	private String media;
-	private double points;
+	private Double points;
 	private Theme theme;
 	private ArrayList<Proposition> propositions;
 	private ArrayList<Epreuve> epreuves;
