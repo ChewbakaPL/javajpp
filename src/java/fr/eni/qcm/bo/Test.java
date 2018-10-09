@@ -1,4 +1,4 @@
-package src.main.java.fr.eni.qcm.bo;
+package java.fr.eni.qcm.bo;
 
 import java.io.Serializable;
 import java.util.ArrayList;

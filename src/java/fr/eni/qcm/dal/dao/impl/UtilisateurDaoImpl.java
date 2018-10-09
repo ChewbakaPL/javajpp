@@ -1,20 +1,18 @@
-package src.main.java.fr.eni.qcm.dal.dao.impl;
+package java.fr.eni.qcm.dal.dao.impl;
 
+import java.fr.eni.qcm.bo.Utilisateur;
+import java.fr.eni.qcm.dal.dao.UtilisateurDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
-import src.main.java.fr.eni.qcm.bo.Utilisateur;
-import src.main.java.fr.eni.qcm.dal.dao.UtilisateurDAO;
 
 public class UtilisateurDaoImpl implements UtilisateurDAO {
 

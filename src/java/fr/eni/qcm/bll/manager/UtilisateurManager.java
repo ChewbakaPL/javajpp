@@ -1,11 +1,11 @@
-package src.main.java.fr.eni.qcm.bll.manager;
+package java.fr.eni.qcm.bll.manager;
 
+import java.fr.eni.qcm.bo.Utilisateur;
 import java.util.List;
 
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
 import fr.eni.tp.web.common.exception.FunctionalException;
-import src.main.java.fr.eni.qcm.bo.Utilisateur;
 
 public interface UtilisateurManager {
 

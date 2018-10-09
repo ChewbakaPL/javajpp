@@ -1,6 +1,9 @@
-package src.main.java.fr.eni.qcm.bll.manager.impl;
+package java.fr.eni.qcm.bll.manager.impl;
 
-import java.util.Date;
+import java.fr.eni.qcm.bll.manager.UtilisateurManager;
+import java.fr.eni.qcm.bo.Utilisateur;
+import java.fr.eni.qcm.dal.dao.UtilisateurDAO;
+import java.fr.eni.qcm.dal.factory.DAOFactory;
 import java.util.List;
 
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
@@ -8,10 +11,6 @@ import fr.eni.tp.web.common.bll.exception.ManagerException;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.exception.FunctionalException;
 import fr.eni.tp.web.common.util.ValidationUtil;
-import src.main.java.fr.eni.qcm.bll.manager.UtilisateurManager;
-import src.main.java.fr.eni.qcm.bo.Utilisateur;
-import src.main.java.fr.eni.qcm.dal.dao.UtilisateurDAO;
-import src.main.java.fr.eni.qcm.dal.factory.DAOFactory;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
