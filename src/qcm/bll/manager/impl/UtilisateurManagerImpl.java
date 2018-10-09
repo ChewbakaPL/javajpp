@@ -124,4 +124,16 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
         return utilisateur;
     }
 
+	@Override
+	public Utilisateur checkLogin(String email, String password) {
+		Utilisateur result = null;
+		try {
+			result = dao.checkLogin(email, password);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

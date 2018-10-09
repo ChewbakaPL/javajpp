@@ -70,8 +70,8 @@
 
         
         <div class="col-md-4 offset-md-4">
-        	<form>
-        		<input name="username" type="text" class="form-control"  placeholder="Utilisateur">
+        	<form action="processLogin" method="POST">
+        		<input name="email" type="text" class="form-control"  placeholder="Utilisateur">
 
         		<input name="password" type="password" class="form-control"  placeholder="Mot de passe">
 

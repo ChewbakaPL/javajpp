@@ -17,4 +17,13 @@
     <servlet-name>jersey-serlvet</servlet-name>
     <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>qcm.ihm.controller.LoginController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/processLogin</url-pattern>
+  </servlet-mapping>
 </web-app>

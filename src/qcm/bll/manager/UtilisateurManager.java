@@ -16,4 +16,6 @@ public interface UtilisateurManager {
     void delete(Integer id) throws ManagerException, FunctionalException;
     
     Utilisateur save(Utilisateur note) throws ManagerException, FunctionalException;
+    
+    Utilisateur checkLogin(String email, String password);
 }
