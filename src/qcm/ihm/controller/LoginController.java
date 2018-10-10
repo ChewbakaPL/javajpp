@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.tp.web.common.HttpStatus;
 
@@ -40,18 +41,17 @@ public class LoginController extends HttpServlet {
         try {
             ValidationUtil.checkNotBlank(email);
             ValidationUtil.checkNotBlank(password);
-            
+            HttpSession session = request.getSession();
             Utilisateur currentUser = utilisateurManager.checkLogin(email, password);
             if (currentUser == null){
-            	
+            	session.setAttribute("error", "Ton login/mot de passe est incorrect!");
             	request.getRequestDispatcher("login").forward(request, response);
-            	
-            }else{
-            	
+            } else {
+            	session.removeAttribute("error");
             	String typeUser = currentUser.getType();
-                if(typeUser!=null && "admin".equals(typeUser)){
+                if(typeUser != null && "admin".equals(typeUser)){
                 	request.getRequestDispatcher("/admin/homepage").forward(request, response);
-                }else{
+                } else {
                 	request.getRequestDispatcher("homepage").forward(request, response);
                 }
             }
