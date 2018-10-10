@@ -12,6 +12,11 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/toastr.min.css" rel="stylesheet">
 	<link href="css/app.css?noCache=<%=noCache%>" rel="stylesheet">
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/toastr.min.js"></script>
+	<script src="js/app.js?noCache=<%=noCache%>"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -41,9 +46,4 @@
 	      <a href="https://www.eni-ecole.fr"> ENI Ecole</a>
 	    </div>
 	</footer>
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/toastr.min.js"></script>
-	<script src="js/app.js?noCache=<%=noCache%>"></script>
 </body>

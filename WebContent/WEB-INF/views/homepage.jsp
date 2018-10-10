@@ -35,24 +35,6 @@
 		</div>
 		<div class="col-8">
 			<div class="mainBox">
-				<table>
-					<thead>
-						<tr>
-							<th>Libelle</th>
-							<th>Description</th>
-							<th>Duree</th>
-							<th>Commencer</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Test1</td>
-							<td>Test trop dur</td>
-							<td>5890 minutes</td>
-							<td><a href="#"> START</a></td>
-						</tr>
-					</tbody>
-				</table>
 				choisi le test que tu veux wesh
 			</div>
 		</div>
