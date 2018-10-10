@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
-import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Utilisateur;
 import qcm.dal.dao.UtilisateurDAO;
@@ -26,21 +25,28 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 public class UtilisateurDaoImpl implements UtilisateurDAO {
 	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	//private static final String INSERT_QUERY = "INSERT INTO Utilisateur(idUtilisateur, nom, email, password, type) VALUES (:idUtilisateur, :nom, :prenom, :email, :password, :type)";
+	//private static final String INSERT_QUERY = "INSERT INTO Utilisateur(nom, email, password, type) VALUES (:nom, :prenom, :email, :password, :type)";
 	private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=:nom, t.prenom=:prenom, email=:email, password=:password, type=:type WHERE t.idUtilisateur=:idUtilisateur";
     
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Utilisateur t ORDER BY t.idUtilisateur DESC";
     private static final String SELECT_ONE_QUERY = "SELECT * FROM Utilisateur t WHERE t.idUtilisateur = ?";
     private static final String DELETE_QUERY = "DELETE FROM Utilisateur t WHERE t.idUtilisateur = ?";
-    private static final String INSERT_QUERY = "INSERT INTO Utilisateur(idUtilisateur, nom, email, password, type) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO Utilisateur(nom, prenom, email, password, type) VALUES (?, ?, ?, ?, ?)";
     //private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=?, t.prenom=?, email=?, password=?, type=? WHERE t.idUtilisateur=?";
     
+    private static final String SELECT_ONE_BY_MAIL_QUERY = "SELECT * FROM Utilisateur WHERE email=?";
     private static final String SELECT_ONE_BY_EMAIL_AND_PASSWORD_QUERY = "SELECT * FROM Utilisateur WHERE email=? AND password=?";
+    
     
     private static UtilisateurDaoImpl instance;
     
     private UtilisateurDaoImpl() {
         
+    }
+    
+    private Connection getConnection() throws SQLException{
+    	//return MSSQLConnectionFactory.get();
+    	return JdbcTools.getConnection();
     }
     
     public void setDataSource(DataSource dataSource) {
@@ -60,9 +66,11 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = MSSQLConnectionFactory.get();
+            connection = getConnection();
             
             statement = connection.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
+            
+            System.out.println("..............'"+ object.getType() +"'.....");
             
             statement.setString(1, object.getNom());
             statement.setString(2, object.getPrenom());
@@ -93,7 +101,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 //  PreparedStatement statement = null;
 //  ResultSet resultSet = null;
 //  try {
-//      connection = MSSQLConnectionFactory.get();
+//      connection = getConnection();
 //      
 //      statement = connection.prepareStatement(UPDATE_QUERY);
 //      statement.setString(1, object.getNom());
@@ -141,7 +149,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = MSSQLConnectionFactory.get();
+            connection = getConnection();
             
             statement = connection.prepareStatement(DELETE_QUERY);
             
@@ -165,10 +173,37 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         Utilisateur object = null;
         
         try {
-            connection = MSSQLConnectionFactory.get();
+            connection = getConnection();
             statement = connection.prepareStatement(SELECT_ONE_QUERY);
             
             statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	object = resultSetToObject(resultSet);
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return object;
+    }
+    
+    @Override
+    public Utilisateur selectByEmail(String email) throws DaoException {
+        
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Utilisateur object = null;
+        
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(SELECT_ONE_BY_MAIL_QUERY);
+            
+            statement.setString(1, email);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -192,7 +227,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         List<Utilisateur> list = new ArrayList<>();
         
         try {
-            connection = MSSQLConnectionFactory.get();
+            connection = getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SELECT_ALL_QUERY);
 
@@ -232,7 +267,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         
         try {
             new JdbcTools();
-			connection = JdbcTools.getConnection();
+			connection = getConnection();
             statement = connection.prepareStatement(SELECT_ONE_BY_EMAIL_AND_PASSWORD_QUERY);
             
             statement.setString(1, email);
