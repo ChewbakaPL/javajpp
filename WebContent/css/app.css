@@ -1,0 +1,25 @@
+img {
+    cursor: pointer;
+}
+.center {
+    float: none; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.page-footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.mainBox{
+	border: 1px solid gray;
+	border-radius: 20px;
+	padding: 10px
+}
