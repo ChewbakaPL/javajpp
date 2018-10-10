@@ -41,7 +41,23 @@ public class LoginController extends HttpServlet {
             ValidationUtil.checkNotBlank(email);
             ValidationUtil.checkNotBlank(password);
             
-            utilisateurManager.checkLogin(email, password);
+            Utilisateur currentUser = utilisateurManager.checkLogin(email, password);
+            if (currentUser == null){
+            	
+            	request.getRequestDispatcher("login").forward(request, response);
+            	
+            }else{
+            	
+            	String typeUser = currentUser.getType();
+                if(typeUser!=null && "admin".equals(typeUser)){
+                	request.getRequestDispatcher("/admin/homepage").forward(request, response);
+                }else{
+                	request.getRequestDispatcher("homepage").forward(request, response);
+                }
+            }
+            
+            
+            
          
             
         } catch (IllegalArgumentException e) {
@@ -52,10 +68,7 @@ public class LoginController extends HttpServlet {
         	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-        Utilisateur currentUser = utilisateurManager.checkLogin(email, password);
-        if (currentUser != null){
-        	response.getWriter().append("utilisateur" + currentUser.toString());
-        }
+        
     }
 
     
