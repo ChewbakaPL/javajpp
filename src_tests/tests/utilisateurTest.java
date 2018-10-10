@@ -2,6 +2,9 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,9 +13,11 @@ import org.junit.Test;
 
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
+import fr.eni.tp.web.common.exception.FunctionalException;
 import qcm.bll.factory.ManagerFactory;
 import qcm.bll.manager.UtilisateurManager;
 import qcm.bo.Utilisateur;
+import qcm.dal.factory.JdbcTools;
 
 public class utilisateurTest {
 	//(et installer le plugin eclipse EclEmma Java Code Coverage 3.1.1)
@@ -36,7 +41,19 @@ public class utilisateurTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws ManagerException, FunctionalException {
+		
+		//test connexion bdd:
+		Connection testMMSQL = null;
+		try {
+			testMMSQL = JdbcTools.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			fail("1) [EXCEPTION THROWED] "+e.getMessage());
+		}
+		assertNotNull(testMMSQL);
+		
+		
 		
 		//insertion des utilisateurs de test (admin et toto):
 		Utilisateur userAdmin = null;
@@ -47,26 +64,36 @@ public class utilisateurTest {
 		String passwordUserToto = "toto";
 		try {
 			userAdmin = utilisateurManager.findByEmail(emailUserAdmin);
-			if(userAdmin==null){
-				userAdmin = new Utilisateur();
-				userAdmin.setNom("totoNom");
-				userAdmin.setPrenom("totoPrenom");
-				userAdmin.setEmail(emailUserAdmin);
-				userAdmin.setPassword(passwordUserAdmin);
-				userAdmin = utilisateurManager.save(userAdmin);
-			}
+		}
+		catch(Exception e){
+			//ElementNotFoundException/ManagerException
+			//no problem it happens on first launch
+		}
+		try {
 			userToto = utilisateurManager.findByEmail(emailUserToto);
-			if(userToto==null){
-				userToto = new Utilisateur();
-				userToto.setNom("adminNom");
-				userToto.setPrenom("adminPrenom");
-				userToto.setEmail(emailUserToto);
-				userToto.setPassword(passwordUserToto);
-				userToto = utilisateurManager.save(userToto);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("[EXCEPTION THROWED]");
+		}
+		catch(Exception e){
+			//ElementNotFoundException/ManagerException
+			//no problem it happens on first launch
+		}
+		
+		if(userAdmin==null){
+			userAdmin = new Utilisateur();
+			userAdmin.setNom("totoNom");
+			userAdmin.setPrenom("totoPrenom");
+			userAdmin.setEmail(emailUserAdmin);
+			userAdmin.setPassword(passwordUserAdmin);
+			userAdmin.setType("admin");
+			userAdmin = utilisateurManager.save(userAdmin);
+		}
+		if(userToto==null){
+			userToto = new Utilisateur();
+			userToto.setNom("adminNom");
+			userToto.setPrenom("adminPrenom");
+			userToto.setEmail(emailUserToto);
+			userToto.setPassword(passwordUserToto);
+			userToto.setType("user");
+			userToto = utilisateurManager.save(userToto);
 		}
 		
 		//on peut maintenant tester checkLogin() :
@@ -76,7 +103,7 @@ public class utilisateurTest {
 		result = utilisateurManager.checkLogin(emailUserAdmin, passwordUserAdmin);
 		assertNotNull(result);
 		assertEquals("admin", result.getType());
-		result = utilisateurManager.checkLogin(emailUserToto, passwordUserAdmin);
+		result = utilisateurManager.checkLogin(emailUserToto, passwordUserToto);
 		assertNotNull(result);
 		assertNotEquals("admin", result.getType());
 		
