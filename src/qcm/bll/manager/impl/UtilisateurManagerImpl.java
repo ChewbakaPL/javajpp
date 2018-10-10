@@ -69,30 +69,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
                 
         return utilisateur;
     }
-    
-    @Override
-    public Utilisateur findByEmail(String email) throws ManagerException, ElementNotFoundException {
-        
-        Utilisateur utilisateur = null;
-        
-        try {
-            
-            ValidationUtil.checkNotNull(email);
-            
-            utilisateur = dao.selectByEmail(email);
-            
-            if(utilisateur == null) {
-                throw new ElementNotFoundException("The user does not exist", null);
-            }
-            
-        } catch (DaoException e) {
-            throw new ManagerException(e.getMessage(), e);
-        } catch (IllegalArgumentException e) {
-            throw new ManagerException("The email cannot be null", e);
-        }
-                
-        return utilisateur;
-    }
 
     @Override
     public void delete(Integer id) throws ManagerException, FunctionalException {
