@@ -35,7 +35,9 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
     private static final String INSERT_QUERY = "INSERT INTO Utilisateur(idUtilisateur, nom, email, password, type) VALUES (?, ?, ?, ?, ?, ?)";
     //private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=?, t.prenom=?, email=?, password=?, type=? WHERE t.idUtilisateur=?";
     
+    private static final String SELECT_ONE_BY_MAIL_QUERY = "SELECT * FROM Utilisateur WHERE email=?";
     private static final String SELECT_ONE_BY_EMAIL_AND_PASSWORD_QUERY = "SELECT * FROM Utilisateur WHERE email=? AND password=?";
+    
     
     private static UtilisateurDaoImpl instance;
     
@@ -169,6 +171,33 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
             statement = connection.prepareStatement(SELECT_ONE_QUERY);
             
             statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	object = resultSetToObject(resultSet);
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return object;
+    }
+    
+    @Override
+    public Utilisateur selectByEmail(String email) throws DaoException {
+        
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Utilisateur object = null;
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_ONE_BY_MAIL_QUERY);
+            
+            statement.setString(1, email);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

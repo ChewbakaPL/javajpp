@@ -18,4 +18,6 @@ public interface UtilisateurManager {
     Utilisateur save(Utilisateur note) throws ManagerException, FunctionalException;
     
     Utilisateur checkLogin(String email, String password);
+
+	Utilisateur findByEmail(String email) throws ManagerException, ElementNotFoundException;
 }
