@@ -29,15 +29,28 @@ public class SecurityFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest)request;
         HttpServletResponse httpResponse = (HttpServletResponse)response;
 
-        //Récupération de l'objet utilisateur connecté depuis la session :
-        HttpSession session = httpRequest.getSession();
-        Utilisateur utilisateur = (Utilisateur) session.getAttribute( "utilisateur" );
-        
-        if(utilisateur == null) {
-            httpResponse.sendRedirect(String.format("%s/login", httpRequest.getContextPath()));
-        } else {
-            chain.doFilter(request, response);
-        }
+		String wantedUrl = httpRequest.getServletPath();
+		String contextPath = httpRequest.getContextPath();  //'/javajpp'
+		Boolean applyNextFilter = true;
+		
+		if(wantedUrl.startsWith("/css/") || wantedUrl.startsWith("/js/")) {
+			//no filter on static assets !
+		}
+		else
+		{
+	        //Récupération de l'objet utilisateur connecté depuis la session :
+	        HttpSession session = httpRequest.getSession();
+	        Utilisateur utilisateur = (Utilisateur) session.getAttribute( "utilisateur" );
+	        
+	        if(utilisateur == null) {
+	            httpResponse.sendRedirect(String.format("%s/login", contextPath));
+	        	applyNextFilter = false;
+	        }
+		}
+		
+		if(applyNextFilter){
+			chain.doFilter(request, response);
+		}
     }
 
     @Override
