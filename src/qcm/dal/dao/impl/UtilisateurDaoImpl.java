@@ -36,7 +36,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
     
     private static UtilisateurDaoImpl instance;
     
-    private UtilisateurDaoImpl() {
+    public UtilisateurDaoImpl() {
         
     }
     

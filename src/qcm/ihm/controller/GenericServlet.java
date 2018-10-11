@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import qcm.bll.factory.ManagerFactory;
-import qcm.bll.manager.TestManager;
-import qcm.bll.manager.UtilisateurManager;
 import qcm.bo.Utilisateur;
+import qcm.dal.dao.impl.TestDaoImpl;
+import qcm.dal.dao.impl.UtilisateurDaoImpl;
 
 /**
  * Servlet implementation class GenericServlet
@@ -19,9 +18,9 @@ import qcm.bo.Utilisateur;
 @WebServlet("/GenericServlet")
 public class GenericServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    //Managers:
-    protected UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
-    protected TestManager testManager = ManagerFactory.testManager();
+    //Managers: 
+    protected UtilisateurDaoImpl utilisateurDao = new UtilisateurDaoImpl();
+	protected TestDaoImpl testDao = new TestDaoImpl();
     
     /**
      * @see HttpServlet#HttpServlet()

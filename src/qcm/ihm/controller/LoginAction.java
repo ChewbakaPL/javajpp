@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import fr.eni.tp.web.common.bll.exception.ManagerException;
+import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ValidationUtil;
 import qcm.bo.Test;
 import qcm.bo.Utilisateur;
@@ -35,7 +35,7 @@ public class LoginAction extends GenericServlet {
         Utilisateur currentUser = null;
         String errorMsg = "";
         try{
-        	currentUser = utilisateurManager.checkLogin(email, password);
+        	currentUser = utilisateurDao.checkLogin(email, password);
         }catch(Exception e){
         	errorMsg = e.getMessage();
         }
@@ -58,8 +58,8 @@ public class LoginAction extends GenericServlet {
             } else {
             	List<Test> listTest = new ArrayList<Test>();
 				try {
-					listTest = testManager.findAll();
-				} catch (ManagerException e) {
+					listTest = testDao.selectAll();
+				} catch (DaoException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

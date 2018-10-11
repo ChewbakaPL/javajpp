@@ -22,7 +22,7 @@ public class TestDaoImpl implements TestDAO {
     
     private static TestDaoImpl instance;
     
-    private TestDaoImpl() {
+    public TestDaoImpl() {
         
     }
     
