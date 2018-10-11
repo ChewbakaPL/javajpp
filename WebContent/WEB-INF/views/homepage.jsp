@@ -1,72 +1,54 @@
+<%@ page language="java" 
+	contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    errorPage="error"
+	isErrorPage="false"
+%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!doctype html>
 <html lang="fr">
 <head>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="s"%>
-	 <meta charset="utf-8">
-	 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <meta name="author" content="sebeez">
-	 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-	 <title>QCM</title>
-	 <% Integer noCache = (int) (Math.random() * (99999 - 9999)); %>
-	 <link href="css/bootstrap.min.css" rel="stylesheet">
-	 <link href="css/toastr.min.css" rel="stylesheet">
-	 <link href="css/app.css?noCache=<%=noCache%>" rel="stylesheet">
+	 <%@include file="include/meta.jsp" %>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<%@include file="include/menu.jsp" %>
+	<jsp:include page="/WEB-INF/views/include/header.jsp">
+		<jsp:param name="title" value="Acceuil (Utilisateur)"/>
+    </jsp:include>
+	
 	<div class="container">
-	    <a class="navbar-brand" href="index.jsp" >QCM ENI</a>
-	</div>
-</nav>
-
-<div class="container center">
-	<div class="col-md-12">
-    	<h1 class="mt-5">Acceuil (Utilisateur)</h1>
-    	<div class="alert alert-danger" id="alert-message" style="visibility: hidden"></div>
-    	<div class="alert alert-info" id="info-message" role="alert" style="visibility: hidden"></div>
-    </div>
-</div>
-
-<div class="container">
-	<div class="row">
-		<div class="list-group col-2">
-		  <a href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>
-		</div>
-		<div class="col-8">
-			<div class="mainBox">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Libelle</th>
-							<th>Description</th>
-							<th>Duree</th>
-						</tr>
-					</thead>
-					<tbody>
-						<s:forEach items="${tests}" var="test">
+		<div class="row">
+			<div class="list-group col-2">
+			  <a href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>
+			</div>
+			<div class="col-8">
+				<div class="mainBox">
+					<table class="table table-hover">
+						<thead>
 							<tr>
-								<td>${ test.libelle }</td>
-								<td>${ test.description }</td>
-								<td>${ test.duree }</td>
+								<th>Libelle</th>
+								<th>Description</th>
+								<th>Duree</th>
 							</tr>
-						</s:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach items="${tests}" var="test">
+								<tr>
+									<td>${ test.libelle }</td>
+									<td>${ test.description }</td>
+									<td>${ test.duree }</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<footer class="page-footer font-small">
-	<div class="footer-copyright text-center py-3">&copy; 2018 Copyright:
-	  <a href="https://www.eni-ecole.fr"> ENI Ecole</a>
-	</div>
-</footer>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/toastr.min.js"></script>
-<script src="js/app.js?noCache=<%=noCache%>"></script>
+	<%@include file="include/footer.jsp" %>
+	<%@include file="include/scripts.jsp" %>
 </body>

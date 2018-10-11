@@ -13,6 +13,7 @@
 	<%@include file="include/meta.jsp" %>
 </head>
 <body>
+	<%@include file="include/menu.jsp" %>
 	<%@include file="include/header.jsp" %>
 	
 	<div class="container center">
