@@ -14,7 +14,7 @@ import qcm.dal.factory.DAOFactory;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
-    private UtilisateurDAO dao = DAOFactory.noteDAO();
+    private UtilisateurDAO dao = DAOFactory.utilisateurDAO();
     
     private static UtilisateurManagerImpl instance;
     

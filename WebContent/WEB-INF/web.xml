@@ -28,11 +28,11 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>LoginController</servlet-name>
-    <servlet-class>qcm.ihm.controller.LoginController</servlet-class>
+    <servlet-name>LoginAction</servlet-name>
+    <servlet-class>qcm.ihm.controller.LoginAction</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>LoginController</servlet-name>
+    <servlet-name>LoginAction</servlet-name>
     <url-pattern>/processLogin</url-pattern>
   </servlet-mapping>
   
