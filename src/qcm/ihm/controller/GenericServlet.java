@@ -58,5 +58,11 @@ public class GenericServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("currentUser", utilisateur);
 	}
+	
+	protected void errorClear(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		session.removeAttribute("error");
+	}
+
 
 }

@@ -21,7 +21,7 @@ import qcm.bll.manager.UtilisateurManager;
 import qcm.bo.Test;
 import qcm.bo.Utilisateur;
 
-public class DisconnectAction extends HttpServlet {
+public class DisconnectAction extends GenericServlet {
     
     /**
      * 
@@ -33,8 +33,8 @@ public class DisconnectAction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession();
-	    	session.removeAttribute("error");
+	    	errorClear(request);
+	    	setCurrentUser(request, null);
         	request.getRequestDispatcher("/login").forward(request, response);
         } catch (IllegalArgumentException e) {
         	LOGGER.error("Validation error", e);

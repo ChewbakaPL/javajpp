@@ -58,4 +58,23 @@
     <servlet-name>AdminHomepage</servlet-name>
     <url-pattern>/admin/homepage</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>showEpreuveAction</servlet-name>
+    <servlet-class>qcm.ihm.controller.ShowEpreuveAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>showEpreuveAction</servlet-name>
+    <url-pattern>/showEpreuve</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>showEpreuveJSP</servlet-name>
+    <jsp-file>/WEB-INF/views/showEpreuve.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>showEpreuveJSP</servlet-name>
+    <url-pattern>/showEpreuveJSP</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

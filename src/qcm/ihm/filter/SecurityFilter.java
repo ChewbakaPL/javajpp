@@ -25,20 +25,21 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        
+    	Boolean applyNextFilter = true;
+    	
         HttpServletRequest httpRequest = (HttpServletRequest)request;
         HttpServletResponse httpResponse = (HttpServletResponse)response;
 
 		String wantedUrl = httpRequest.getServletPath();
 		String contextPath = httpRequest.getContextPath();  //'/javajpp'
-		Boolean applyNextFilter = true;
+		
 		
 		if(wantedUrl.startsWith("/css/") || wantedUrl.startsWith("/js/")) {
 			//no filter on static assets !
 		}
 		else
 		{
-	        //Récupération de l'objet utilisateur connecté depuis la session :
+	        //RÃ©cupÃ©ration de l'objet utilisateur connectï¿½ depuis la session :
 	        HttpSession session = httpRequest.getSession();
 	        Utilisateur utilisateur = (Utilisateur) session.getAttribute( "utilisateur" );
 	        
