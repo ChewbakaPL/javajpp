@@ -18,16 +18,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class TestDaoImpl implements TestDAO {
 	
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    private static final String SELECT_ALL_QUERY = "SELECT * FROM Test";
-    private static final String SELECT_ONE_QUERY = "SELECT * FROM Utilisateur t WHERE t.idUtilisateur = ?";
-    private static final String DELETE_QUERY = "DELETE FROM Utilisateur t WHERE t.idUtilisateur = ?";
-    private static final String INSERT_QUERY = "INSERT INTO Utilisateur(nom, prenom, email, password, type) VALUES (?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "UPDATE Utilisateur t SET t.nom=?, t.prenom=?, email=?, password=?, type=? WHERE t.idUtilisateur=?";
-    private static final String SELECT_ONE_BY_MAIL_QUERY = "SELECT * FROM Utilisateur WHERE email=?";
-    private static final String SELECT_ONE_BY_EMAIL_AND_PASSWORD_QUERY = "SELECT * FROM Utilisateur WHERE email=? AND password=?";
-    
+	private static final String SELECT_ALL_QUERY = "SELECT * FROM Test";
     
     private static TestDaoImpl instance;
     
@@ -40,7 +31,7 @@ public class TestDaoImpl implements TestDAO {
     }
     
     public void setDataSource(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        new NamedParameterJdbcTemplate(dataSource);
     }
     
     public static TestDaoImpl getInstance() {

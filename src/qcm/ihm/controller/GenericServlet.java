@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import qcm.bll.factory.ManagerFactory;
 import qcm.bll.manager.TestManager;
 import qcm.bll.manager.UtilisateurManager;
@@ -22,7 +19,6 @@ import qcm.bo.Utilisateur;
 @WebServlet("/GenericServlet")
 public class GenericServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAction.class);
     //Managers:
     protected UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
     protected TestManager testManager = ManagerFactory.testManager();

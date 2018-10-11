@@ -6,7 +6,6 @@ import fr.eni.tp.web.common.bll.exception.ManagerException;
 import qcm.bll.manager.TestManager;
 import qcm.bo.Test;
 import qcm.dal.dao.TestDAO;
-import qcm.dal.dao.UtilisateurDAO;
 import qcm.dal.factory.DAOFactory;
 
 public class TestManagerImpl implements TestManager {
