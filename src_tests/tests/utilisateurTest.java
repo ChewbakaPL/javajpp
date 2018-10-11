@@ -11,19 +11,17 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
-import fr.eni.tp.web.common.bll.exception.ManagerException;
+import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.exception.FunctionalException;
-import qcm.bll.factory.ManagerFactory;
-import qcm.bll.manager.UtilisateurManager;
 import qcm.bo.Utilisateur;
+import qcm.dal.dao.impl.UtilisateurDaoImpl;
 import qcm.dal.factory.JdbcTools;
 
 public class utilisateurTest {
 	//(et installer le plugin eclipse EclEmma Java Code Coverage 3.1.1)
 	
-	private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
-
+	protected UtilisateurDaoImpl utilisateurDao = new UtilisateurDaoImpl();
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -41,7 +39,7 @@ public class utilisateurTest {
 	}
 
 	@Test
-	public void test() throws ManagerException, FunctionalException {
+	public void test() throws FunctionalException, DaoException {
 		
 		//test connexion bdd:
 		Connection testMMSQL = null;
@@ -54,7 +52,6 @@ public class utilisateurTest {
 		assertNotNull(testMMSQL);
 		
 		
-		
 		//insertion des utilisateurs de test (admin et toto):
 		Utilisateur userAdmin = null;
 		Utilisateur userToto = null;
@@ -63,14 +60,14 @@ public class utilisateurTest {
 		String passwordUserAdmin = "admin";
 		String passwordUserToto = "toto";
 		try {
-			userAdmin = utilisateurManager.findByEmail(emailUserAdmin);
+			userAdmin = utilisateurDao.selectByEmail(emailUserAdmin);
 		}
 		catch(Exception e){
 			//ElementNotFoundException/ManagerException
 			//no problem it happens on first launch
 		}
 		try {
-			userToto = utilisateurManager.findByEmail(emailUserToto);
+			userToto = utilisateurDao.selectByEmail(emailUserToto);
 		}
 		catch(Exception e){
 			//ElementNotFoundException/ManagerException
@@ -84,7 +81,7 @@ public class utilisateurTest {
 			userAdmin.setEmail(emailUserAdmin);
 			userAdmin.setPassword(passwordUserAdmin);
 			userAdmin.setType("admin");
-			userAdmin = utilisateurManager.save(userAdmin);
+			userAdmin = utilisateurDao.insert(userAdmin);
 		}
 		if(userToto==null){
 			userToto = new Utilisateur();
@@ -93,17 +90,17 @@ public class utilisateurTest {
 			userToto.setEmail(emailUserToto);
 			userToto.setPassword(passwordUserToto);
 			userToto.setType("user");
-			userToto = utilisateurManager.save(userToto);
+			userToto = utilisateurDao.insert(userToto);
 		}
 		
 		//on peut maintenant tester checkLogin() :
 		Utilisateur result;
-		result = utilisateurManager.checkLogin("fail", "fail");
+		result = utilisateurDao.checkLogin("fail", "fail");
 		assertNull(result);
-		result = utilisateurManager.checkLogin(emailUserAdmin, passwordUserAdmin);
+		result = utilisateurDao.checkLogin(emailUserAdmin, passwordUserAdmin);
 		assertNotNull(result);
 		assertEquals("admin", result.getType());
-		result = utilisateurManager.checkLogin(emailUserToto, passwordUserToto);
+		result = utilisateurDao.checkLogin(emailUserToto, passwordUserToto);
 		assertNotNull(result);
 		assertNotEquals("admin", result.getType());
 		
