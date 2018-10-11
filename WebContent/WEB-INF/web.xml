@@ -42,6 +42,15 @@
     <url-pattern>/homepage</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>DisconnectAction</servlet-name>
+   <servlet-class>qcm.ihm.controller.DisconnectAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DisconnectAction</servlet-name>
+    <url-pattern>/disconnect</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>AdminHomepage</servlet-name>
     <jsp-file>/WEB-INF/views/admin/homepage.jsp</jsp-file>
   </servlet>
