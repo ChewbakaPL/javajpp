@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="s"%>
 	 <meta charset="utf-8">
 	 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,24 @@
 		</div>
 		<div class="col-8">
 			<div class="mainBox">
-				choisi le test que tu veux wesh
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Libelle</th>
+							<th>Description</th>
+							<th>Duree</th>
+						</tr>
+					</thead>
+					<tbody>
+						<s:forEach items="${tests}" var="test">
+							<tr>
+								<td>${ test.libelle }</td>
+								<td>${ test.description }</td>
+								<td>${ test.duree }</td>
+							</tr>
+						</s:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

@@ -16,19 +16,22 @@ import org.slf4j.LoggerFactory;
 
 import fr.eni.tp.web.common.util.ValidationUtil;
 import qcm.bll.factory.ManagerFactory;
+import qcm.bll.manager.TestManager;
 import qcm.bll.manager.UtilisateurManager;
+import qcm.bo.Test;
 import qcm.bo.Utilisateur;
 
-public class LoginController extends HttpServlet {
+public class LoginAction extends HttpServlet {
 
     private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
+    private TestManager testManager = ManagerFactory.testManager();
     
     /**
      * 
      */
     private static final long serialVersionUID = 981257470919615518L;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAction.class);
     
 
 
@@ -52,14 +55,11 @@ public class LoginController extends HttpServlet {
                 if(typeUser != null && "admin".equals(typeUser)){
                 	request.getRequestDispatcher("/admin/homepage").forward(request, response);
                 } else {
+                	List<Test> listTest = testManager.findAll();
+                	request.setAttribute("tests", listTest);
                 	request.getRequestDispatcher("homepage").forward(request, response);
                 }
             }
-            
-            
-            
-         
-            
         } catch (IllegalArgumentException e) {
         	LOGGER.error("Validation error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

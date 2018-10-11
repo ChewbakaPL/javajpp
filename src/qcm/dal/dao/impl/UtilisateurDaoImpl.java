@@ -44,9 +44,14 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         
     }
     
-    private Connection getConnection() throws SQLException{
-    	//return MSSQLConnectionFactory.get();
-    	return JdbcTools.getConnection();
+    public Connection getConnection(){
+    	Connection connection = null;
+    	try {
+			connection = JdbcTools.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return connection;
     }
     
     public void setDataSource(DataSource dataSource) {
@@ -67,11 +72,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         ResultSet resultSet = null;
         try {
             connection = getConnection();
-            
             statement = connection.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
-            
-            System.out.println("..............'"+ object.getType() +"'.....");
-            
             statement.setString(1, object.getNom());
             statement.setString(2, object.getPrenom());
             statement.setString(3, object.getEmail());
@@ -93,34 +94,6 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
         
         return object;
     }
-
-//@Override
-//  public void update(Utilisateur object) throws DaoException {
-//        
-//  Connection connection = null;
-//  PreparedStatement statement = null;
-//  ResultSet resultSet = null;
-//  try {
-//      connection = getConnection();
-//      
-//      statement = connection.prepareStatement(UPDATE_QUERY);
-//      statement.setString(1, object.getNom());
-//      statement.setString(2, object.getPrenom());
-//      statement.setString(3, object.getEmail());
-//      statement.setString(4, object.getPassword());
-//      statement.setString(5, object.getType());
-//      statement.setInt(6, object.getIdUtilisateur());
-//      
-//      statement.executeUpdate();
-//
-//  } catch(SQLException e) {
-//      throw new DaoException(e.getMessage(), e);
-//  } finally {
-//      ResourceUtil.safeClose(resultSet, statement, connection);
-//  }
-//  
-//}
-    
     
     @Override
     public void update(Utilisateur object) {
