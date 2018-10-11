@@ -35,14 +35,8 @@ public class TestDaoImpl implements TestDAO {
         
     }
     
-    public Connection getConnection(){
-    	Connection connection = null;
-    	try {
-			connection = JdbcTools.getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	return connection;
+    public Connection getConnection() throws SQLException{
+    	return JdbcTools.getConnection();
     }
     
     public void setDataSource(DataSource dataSource) {

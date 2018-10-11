@@ -149,13 +149,12 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     }
 
 	@Override
-	public Utilisateur checkLogin(String email, String password) {
+	public Utilisateur checkLogin(String email, String password) throws ManagerException {
 		Utilisateur result = null;
 		try {
 			result = dao.checkLogin(email, password);
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ManagerException("Connexion à la bdd impossible", e);
 		}
 		return result;
 	}

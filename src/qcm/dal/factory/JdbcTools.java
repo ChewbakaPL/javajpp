@@ -25,9 +25,10 @@ public class JdbcTools {
 	}
 	
 	public static Connection getConnection() throws SQLException {
-		Connection connection = null;		
-		connection = DriverManager.getConnection("jdbc:sqlserver://127.0.0.1;databasename=javaQCM"
-				, "sa", "Pa$$w0rd");
+		String host = "jdbc:sqlserver://127.0.0.1;databasename=javaQCM";
+		//String host = "jdbc:sqlserver://10.102.200.28;databasename=javaQCM"; //no pass firewall :(
+		Connection connection = null;
+		connection = DriverManager.getConnection(host, "sa", "Pa$$w0rd");
 		return connection;
 	}
 	

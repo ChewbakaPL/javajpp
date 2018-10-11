@@ -1,12 +1,13 @@
 package qcm.dal.dao;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 
 public interface GenericDAO<T, ID> {
 
-	Connection getConnection();
+	Connection getConnection() throws SQLException;
 	
     T insert(T element) throws DaoException;
     

@@ -1,6 +1,7 @@
 package qcm.ihm.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.tp.web.common.HttpStatus;
+import fr.eni.tp.web.common.bll.exception.ManagerException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,52 +23,59 @@ import qcm.bll.manager.UtilisateurManager;
 import qcm.bo.Test;
 import qcm.bo.Utilisateur;
 
-public class LoginAction extends HttpServlet {
+public class LoginAction extends GenericServlet {
 
-    private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
-    private TestManager testManager = ManagerFactory.testManager();
-    
     /**
      * 
      */
     private static final long serialVersionUID = 981257470919615518L;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAction.class);
-    
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        String email = request.getParameter("email");
+    	String email = request.getParameter("email");
         String password = request.getParameter("password");
+        ValidationUtil.checkNotBlank(email);
+        ValidationUtil.checkNotBlank(password);
         
-        try {
-            ValidationUtil.checkNotBlank(email);
-            ValidationUtil.checkNotBlank(password);
-            HttpSession session = request.getSession();
-            Utilisateur currentUser = utilisateurManager.checkLogin(email, password);
-            if (currentUser == null){
-            	session.setAttribute("error", "Ton login/mot de passe est incorrect!");
-            	request.getRequestDispatcher("login").forward(request, response);
+        HttpSession session = request.getSession();
+        
+        Utilisateur currentUser = null;
+        String errorMsg = "";
+        try{
+        	currentUser = utilisateurManager.checkLogin(email, password);
+        }catch(Exception e){
+        	errorMsg = e.getMessage();
+        }
+        
+        
+        if (currentUser == null){
+        	if("".equals(errorMsg)){
+        		errorMsg = "Ton login/mot de passe est incorrect!";
+        	}
+        	session.setAttribute("error", errorMsg);
+        	request.getRequestDispatcher("login").forward(request, response);
+        } else {
+        	setCurrentUser(request, currentUser);
+        	
+        	session.removeAttribute("error");
+        	
+        	String typeUser = currentUser.getType();
+            if(typeUser != null && "admin".equals(typeUser)){
+            	request.getRequestDispatcher("/admin/homepage").forward(request, response);
             } else {
-            	session.removeAttribute("error");
-            	String typeUser = currentUser.getType();
-                if(typeUser != null && "admin".equals(typeUser)){
-                	request.getRequestDispatcher("/admin/homepage").forward(request, response);
-                } else {
-                	List<Test> listTest = testManager.findAll();
-                	request.setAttribute("tests", listTest);
-                	request.getRequestDispatcher("homepage").forward(request, response);
-                }
+            	List<Test> listTest = new ArrayList<Test>();
+				try {
+					listTest = testManager.findAll();
+				} catch (ManagerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	request.setAttribute("tests", listTest);
+            	request.getRequestDispatcher("homepage").forward(request, response);
             }
-        } catch (IllegalArgumentException e) {
-        	LOGGER.error("Validation error", e);
-            response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-
-        } catch (Exception e) {
-        	LOGGER.error("Technical error", e);
-            response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
         
     }
