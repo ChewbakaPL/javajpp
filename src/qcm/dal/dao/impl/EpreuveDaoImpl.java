@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Epreuve;
+import qcm.bo.Question;
 import qcm.bo.QuestionTirage;
 import qcm.bo.Test;
 import qcm.common.JdbcTools;
@@ -125,10 +125,14 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         return object;
     }
     
-    private QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException {
+    private QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException, DaoException {
     	QuestionTirage object = new QuestionTirage();
     	object.setIdEpreuve(resultSet.getInt("idTest"));
-    	object.setIdQuestion(resultSet.getInt("idQuestion"));
+    	
+    	QuestionDaoImpl questionDao = new QuestionDaoImpl();
+        Question question = questionDao.selectById(resultSet.getInt("idQuestion"));
+        object.setQuestion(question);
+    	
     	object.setEstMarquee(JdbcTools.IntToBoolean(resultSet.getInt("estMarquee")));
     	object.setNumOrdre(resultSet.getInt("numOrdre"));
     	return object;

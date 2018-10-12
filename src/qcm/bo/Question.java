@@ -10,7 +10,7 @@ public class Question {
 	private Double points;
 	private Theme theme;
 	private ArrayList<Proposition> propositions;
-	private ArrayList<Epreuve> epreuves;
+	//private ArrayList<Epreuve> epreuves;
 	
 	public Question() {
 		super();
@@ -51,12 +51,15 @@ public class Question {
 	public void setPropositions(ArrayList<Proposition> propositions) {
 		this.propositions = propositions;
 	}
+	
+	/*
 	public ArrayList<Epreuve> getEpreuves() {
 		return epreuves;
 	}
 	public void setEpreuves(ArrayList<Epreuve> epreuves) {
 		this.epreuves = epreuves;
 	}
+	*/
 	
 	
 	

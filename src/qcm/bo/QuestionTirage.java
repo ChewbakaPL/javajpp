@@ -2,7 +2,7 @@ package qcm.bo;
 
 public class QuestionTirage {
 	private int idEpreuve;
-	private Integer idQuestion;
+	private Question question;
 	private Boolean estMarquee;
 	private Integer numOrdre;
 	
@@ -16,11 +16,11 @@ public class QuestionTirage {
 	public void setIdEpreuve(int idEpreuve) {
 		this.idEpreuve = idEpreuve;
 	}
-	public Integer getIdQuestion() {
-		return idQuestion;
+	public Question getQuestion() {
+		return question;
 	}
-	public void setIdQuestion(Integer idQuestion) {
-		this.idQuestion = idQuestion;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 	public Boolean getEstMarquee() {
 		return estMarquee;
