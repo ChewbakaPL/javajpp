@@ -34,21 +34,20 @@
     <url-pattern>/processLogin</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>DisconnectAction</servlet-name>
-   <servlet-class>qcm.ihm.controller.DisconnectAction</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DisconnectAction</servlet-name>
-    <url-pattern>/disconnect</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
     <servlet-name>Homepage</servlet-name>
     <jsp-file>/WEB-INF/views/homepage.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>Homepage</servlet-name>
     <url-pattern>/homepage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DisconnectAction</servlet-name>
+   <servlet-class>qcm.ihm.controller.DisconnectAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DisconnectAction</servlet-name>
+    <url-pattern>/disconnect</url-pattern>
   </servlet-mapping>
   
   <servlet>

@@ -1,7 +1,6 @@
 <%@ page language="java" 
 	contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="error"
 	isErrorPage="false"
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -41,7 +40,7 @@
 									<td>${ test.libelle }</td>
 									<td>${ test.description }</td>
 									<td>${ test.duree }</td>
-									<td><a class="btn btn-primary" href="#?id=${ test.id }"> Demarrer le test</a></td>
+									<td><a class="btn btn-primary" href="${pageContext.request.contextPath }/showEpreuve?id=${ test.idTest }"> Demarrer le test</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
