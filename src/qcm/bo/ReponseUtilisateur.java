@@ -1,6 +1,7 @@
 package qcm.bo;
 
 public class ReponseUtilisateur {
+	
 	private int idQuestion;
 	private int idProposition;
 	
