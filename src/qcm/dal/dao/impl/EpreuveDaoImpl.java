@@ -14,6 +14,7 @@ import qcm.bo.Epreuve;
 import qcm.bo.Question;
 import qcm.bo.QuestionTirage;
 import qcm.bo.Test;
+import qcm.bo.Utilisateur;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.EpreuveDAO;
 
@@ -24,11 +25,8 @@ public class EpreuveDaoImpl implements EpreuveDAO {
 	
 	private static final String SELECT_ALL_QUERY = "SELECT * FROM Epreuve t";
     private static final String SELECT_ONE_QUERY = "SELECT * FROM Epreuve t WHERE t.idEpreuve = ?";
-	
-    //private static final String JOIN_QUESTION_TIRAGE = " JOIN QuestionTirage t2 ON t.idEpreuve = t2.idEpreuve";
-    
     private static final String SELECT_QUESTION_TIRAGE = "SELECT * FROM QuestionTirage t WHERE t.idEpreuve = ?";
-    
+    private static final String SELECT_BY_USER_QUERY = "SELECT * FROM Epreuve t WHERE t.idUtilisateur = ?";
     
     private static EpreuveDaoImpl instance;
     
@@ -54,12 +52,10 @@ public class EpreuveDaoImpl implements EpreuveDAO {
     
     @Override
     public Epreuve selectById(Integer id) throws DaoException {
-        
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Epreuve object = null;
-        
         try {
             connection = getConnection();
             statement = connection.prepareStatement(SELECT_ONE_QUERY);
@@ -107,21 +103,46 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         return list;
     }
     
-    private Epreuve resultSetToObject(ResultSet resultSet) throws SQLException, DaoException {
+    @SuppressWarnings("null")
+	public List<Epreuve> selectByUser(Integer id) throws DaoException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Epreuve> list = new ArrayList<>();
         
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(SELECT_BY_USER_QUERY);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                list.add(resultSetToObject(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return list;
+    }
+    
+    private Epreuve resultSetToObject(ResultSet resultSet) throws SQLException, DaoException {
     	Epreuve object = new Epreuve();
         object.setIdEpreuve(resultSet.getInt("idEpreuve"));
-        object.setDateDebutValidite(resultSet.getTimestamp("dateDebutValidite"));
-        object.setDateFinValidite(resultSet.getTimestamp("dateFinValidite"));
+        object.setDateDebutValidite(resultSet.getInt("dateDebutValidite"));
+        object.setDateFinValidite(resultSet.getInt("dateFinValidite"));
         object.setTempsEcoule(resultSet.getInt("tempsEcoule"));
         object.setEtat(resultSet.getInt("etat"));
         object.setNoteObtenu(resultSet.getDouble("noteObtenu"));
         object.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
-        
+        UtilisateurDaoImpl utilisateurDao = new UtilisateurDaoImpl();
+        Utilisateur utilisateur = utilisateurDao.selectById(resultSet.getInt("idUtilisateur"));
+        object.setUtilisateur(utilisateur);
         TestDaoImpl testDao = new TestDaoImpl();
         Test test = testDao.selectById(resultSet.getInt("idTest"));
         object.setTest(test);
-        
         return object;
     }
     
@@ -147,9 +168,7 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         
         try {
             connection = getConnection();
-            statement = connection.prepareStatement(SELECT_QUESTION_TIRAGE);
-            resultSet = statement.executeQuery();
-            
+            statement = connection.prepareStatement(SELECT_QUESTION_TIRAGE);        
             statement.setInt(1, idEpreuve);
             resultSet = statement.executeQuery();
             

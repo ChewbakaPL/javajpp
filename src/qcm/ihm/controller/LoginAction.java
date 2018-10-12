@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ValidationUtil;
+import qcm.bo.Epreuve;
 import qcm.bo.Test;
 import qcm.bo.Utilisateur;
+import qcm.dal.dao.EpreuveDAO;
+import qcm.dal.dao.impl.EpreuveDaoImpl;
 
 public class LoginAction extends GenericServlet {
 
@@ -54,13 +57,15 @@ public class LoginAction extends GenericServlet {
             if(typeUser != null && "admin".equals(typeUser)){
             	request.getRequestDispatcher("/admin/homepage").forward(request, response);
             } else {
-            	List<Test> listTest = new ArrayList<Test>();
+            	List<Epreuve> listEpreuve = new ArrayList<Epreuve>();
 				try {
-					listTest = testDao.selectAll();
+					System.out.println(currentUser.getIdUtilisateur());
+					listEpreuve = epreuveDao.selectByUser(currentUser.getIdUtilisateur());
+					
 				} catch (DaoException e) {
 					e.printStackTrace();
 				}
-            	request.setAttribute("tests", listTest);
+            	request.setAttribute("epreuves", listEpreuve);
             	request.getRequestDispatcher("/homepage").forward(request, response);
             }
         }

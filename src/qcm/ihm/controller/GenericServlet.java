@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import qcm.bo.Utilisateur;
+import qcm.dal.dao.EpreuveDAO;
+import qcm.dal.dao.impl.EpreuveDaoImpl;
 import qcm.dal.dao.impl.TestDaoImpl;
 import qcm.dal.dao.impl.UtilisateurDaoImpl;
 
@@ -22,6 +24,7 @@ public class GenericServlet extends HttpServlet {
     //Managers: 
     protected UtilisateurDaoImpl utilisateurDao = new UtilisateurDaoImpl();
 	protected TestDaoImpl testDao = new TestDaoImpl();
+	protected EpreuveDaoImpl epreuveDao = new EpreuveDaoImpl();
     
     /**
      * @see HttpServlet#HttpServlet()

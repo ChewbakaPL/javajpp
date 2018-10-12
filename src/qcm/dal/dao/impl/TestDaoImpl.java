@@ -1,6 +1,7 @@
 package qcm.dal.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,8 @@ import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
+import qcm.bo.Epreuve;
+import qcm.bo.QuestionTirage;
 import qcm.bo.Test;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.TestDAO;
@@ -19,7 +22,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class TestDaoImpl implements TestDAO {
 	
 	private static final String SELECT_ALL_QUERY = "SELECT * FROM Test";
-    
+    private static final String SELECT_ONE_QUERY = "SELECT * FROM Test WHERE idTest = ?";
+	
     private static TestDaoImpl instance;
     
     public TestDaoImpl() {
@@ -99,7 +103,25 @@ public class TestDaoImpl implements TestDAO {
 
 	@Override
 	public Test selectById(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+	    PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+	    Test object = null;
+	    try {
+	        connection = getConnection();
+	        statement = connection.prepareStatement(SELECT_ONE_QUERY);
+	        
+	        statement.setInt(1, id);
+	        resultSet = statement.executeQuery();
+	
+	        while (resultSet.next()) {
+	        	object = resultSetToObject(resultSet);
+	        }
+	    } catch(SQLException e) {
+	        throw new DaoException(e.getMessage(), e);
+	    } finally {
+	        ResourceUtil.safeClose(resultSet, statement, connection);
+	    }
+		return object;
 	}
 }

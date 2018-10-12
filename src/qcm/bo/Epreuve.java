@@ -6,35 +6,42 @@ import java.util.ArrayList;
 public class Epreuve {
 
 	private Integer idEpreuve;
-	private Timestamp dateDebutValidite;
-	private Timestamp dateFinValidite;
+	private Integer dateDebutValidite;
+	private Integer dateFinValidite;
 	private Integer tempsEcoule;
 	private Integer etat;
 	private Double noteObtenu;
 	private Integer niveauObtenu;
 	private Test test;
+	private Utilisateur utilisateur;
 	private ArrayList<QuestionTirage> questionTirages;
 	
 	public Epreuve() {
 		super();
 	}
 	
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
 	public Integer getIdEpreuve() {
 		return idEpreuve;
 	}
 	public void setIdEpreuve(Integer idEpreuve) {
 		this.idEpreuve = idEpreuve;
 	}
-	public Timestamp getDateDebutValidite() {
+	public Integer getDateDebutValidite() {
 		return dateDebutValidite;
 	}
-	public void setDateDebutValidite(Timestamp dateDebutValidite) {
+	public void setDateDebutValidite(Integer dateDebutValidite) {
 		this.dateDebutValidite = dateDebutValidite;
 	}
-	public Timestamp getDateFinValidite() {
+	public Integer getDateFinValidite() {
 		return dateFinValidite;
 	}
-	public void setDateFinValidite(Timestamp dateFinValidite) {
+	public void setDateFinValidite(Integer dateFinValidite) {
 		this.dateFinValidite = dateFinValidite;
 	}
 	public Integer getTempsEcoule() {

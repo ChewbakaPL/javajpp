@@ -35,12 +35,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${tests}" var="test">
+							<c:forEach items="${ epreuves }" var="epreuve">
 								<tr>
-									<td>${ test.libelle }</td>
-									<td>${ test.description }</td>
-									<td>${ test.duree }</td>
-									<td><a class="btn btn-primary" href="${pageContext.request.contextPath }/showEpreuve?id=${ test.idTest }"> Demarrer le test</a></td>
+									<td>${ epreuve.test.libelle }</td>
+									<td>${ epreuve.test.description }</td>
+									<td>${ epreuve.test.duree }</td>
+									<td><a class="btn btn-primary" href="${pageContext.request.contextPath }/showEpreuve?id=${ epreuve.idEpreuve }"> Demarrer le test</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

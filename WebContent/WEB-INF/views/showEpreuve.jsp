@@ -27,7 +27,7 @@
 				<div class="mainBox">
 					<div class="row">
 						<h3>${ epreuve.test.libelle }</h3>
-						<p>${ epreuve.test.description } (${ epreuve.test.duree } - minutes) </p>
+						<p>${ epreuve.test.description } ( ${ epreuve.test.duree }  - minutes) </p>
 						<div id="questionsPanel">
 							<!-- Boucle pour chaque question -->
 							<span class="quetionCarret"></span>
