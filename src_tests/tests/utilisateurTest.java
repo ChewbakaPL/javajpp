@@ -74,7 +74,7 @@ public class utilisateurTest {
 			//no problem it happens on first launch
 		}
 		
-		if(userAdmin==null){
+		if(userAdmin == null){
 			userAdmin = new Utilisateur();
 			userAdmin.setNom("totoNom");
 			userAdmin.setPrenom("totoPrenom");
@@ -83,7 +83,7 @@ public class utilisateurTest {
 			userAdmin.setType("admin");
 			userAdmin = utilisateurDao.insert(userAdmin);
 		}
-		if(userToto==null){
+		if(userToto == null){
 			userToto = new Utilisateur();
 			userToto.setNom("adminNom");
 			userToto.setPrenom("adminPrenom");

@@ -49,9 +49,7 @@ public class LoginAction extends GenericServlet {
         	request.getRequestDispatcher("login").forward(request, response);
         } else {
         	setCurrentUser(request, currentUser);
-        	
         	session.removeAttribute("error");
-        	
         	String typeUser = currentUser.getType();
             if(typeUser != null && "admin".equals(typeUser)){
             	request.getRequestDispatcher("/admin/homepage").forward(request, response);
@@ -60,11 +58,10 @@ public class LoginAction extends GenericServlet {
 				try {
 					listTest = testDao.selectAll();
 				} catch (DaoException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             	request.setAttribute("tests", listTest);
-            	request.getRequestDispatcher("homepage").forward(request, response);
+            	request.getRequestDispatcher("/homepage").forward(request, response);
             }
         }
         

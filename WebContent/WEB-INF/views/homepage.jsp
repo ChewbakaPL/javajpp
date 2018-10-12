@@ -32,6 +32,7 @@
 								<th>Libelle</th>
 								<th>Description</th>
 								<th>Duree</th>
+								<th>Start</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,6 +41,7 @@
 									<td>${ test.libelle }</td>
 									<td>${ test.description }</td>
 									<td>${ test.duree }</td>
+									<td><a class="btn btn-primary" href="#?id=${ test.id }"> Demarrer le test</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
