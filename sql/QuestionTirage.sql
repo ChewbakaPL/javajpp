@@ -1,7 +1,7 @@
 USE [javaQCM]
 GO
 
-/****** Object:  Table [dbo].[QuestionEpreuve] ******/
+/****** Object:  Table [dbo].[QuestionTirage] ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,9 +11,11 @@ GO
 SET ANSI_PADDING ON
 GO
 
-CREATE TABLE [dbo].[QuestionEpreuve](
-	[idQuestion] [int] NOT NULL FOREIGN KEY REFERENCES Question(idQuestion),
+CREATE TABLE [dbo].[QuestionTirage](
 	[idEpreuve] [int] NOT NULL FOREIGN KEY REFERENCES Epreuve(idEpreuve),
+	[idQuestion] [int] NOT NULL FOREIGN KEY REFERENCES Question(idQuestion),
+	[estMarquee] [tinyint] NOT NULL,
+	[numOrdre] [int] NOT NULL,
 	
 ) ON [PRIMARY]
 
