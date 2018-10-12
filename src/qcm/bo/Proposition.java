@@ -5,15 +5,19 @@ public class Proposition {
 	private Integer idProposition;
 	private String enonce;
 	private Boolean estBonne;
-	private Question quesiton;
+	private Integer idQuestion;  
+	//(pas question pour éviter boucle chargement proposition<-->question)
 	
-	public Proposition(String enonce, Boolean estBonne, Question quesiton) {
+	public Proposition(String enonce, Boolean estBonne) {
 		super();
 		this.enonce = enonce;
 		this.estBonne = estBonne;
-		this.quesiton = quesiton;
 	}
 	
+	public Proposition() {
+		super();
+	}
+
 	public Integer getIdProposition() {
 		return idProposition;
 	}
@@ -32,11 +36,15 @@ public class Proposition {
 	public void setEstBonne(Boolean estBonne) {
 		this.estBonne = estBonne;
 	}
-	public Question getQuesiton() {
-		return quesiton;
+
+	public Integer getIdQuestion() {
+		return idQuestion;
 	}
-	public void setQuesiton(Question quesiton) {
-		this.quesiton = quesiton;
+
+	public void setIdQuestion(Integer idQuestion) {
+		this.idQuestion = idQuestion;
 	}
+	
+	
 
 }
