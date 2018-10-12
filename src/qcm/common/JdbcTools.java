@@ -1,4 +1,4 @@
-package qcm.dal.factory;
+package qcm.common;
 /**
  * 
  */
@@ -32,7 +32,20 @@ public class JdbcTools {
 		return connection;
 	}
 	
-	
+	public static Boolean IntToBoolean(Integer input){
+		Boolean output = false;
+		if(input == 1){
+			output = true;
+		}
+		return output;
+	}
+	public static Integer BooleanToInt(Boolean input){
+		Integer output = 0;
+		if(input == true){
+			output = 1;
+		}
+		return output;
+	}
 	
 
 }

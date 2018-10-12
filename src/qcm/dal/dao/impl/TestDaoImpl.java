@@ -10,8 +10,8 @@ import java.util.List;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Test;
+import qcm.common.JdbcTools;
 import qcm.dal.dao.TestDAO;
-import qcm.dal.factory.JdbcTools;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

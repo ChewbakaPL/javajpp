@@ -14,8 +14,8 @@ import org.junit.Test;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.exception.FunctionalException;
 import qcm.bo.Utilisateur;
+import qcm.common.JdbcTools;
 import qcm.dal.dao.impl.UtilisateurDaoImpl;
-import qcm.dal.factory.JdbcTools;
 
 public class utilisateurTest {
 	//(et installer le plugin eclipse EclEmma Java Code Coverage 3.1.1)

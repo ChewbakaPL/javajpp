@@ -14,7 +14,7 @@ GO
 CREATE TABLE [dbo].[Epreuve](
 	[idEpreuve] [int] NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	[dateDebutValidite] [timestamp] NULL,
-	[dateFinValidite] [varchar](255) NULL,
+	[dateFinValidite] [timestamp] NULL,
 	[tempsEcoule] [int] NULL,
 	[etat] [int] NULL,
 	[noteObtenu] [decimal](18, 0) NULL,

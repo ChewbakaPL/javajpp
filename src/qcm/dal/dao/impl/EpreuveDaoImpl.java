@@ -5,14 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Epreuve;
+import qcm.bo.QuestionTirage;
+import qcm.bo.Test;
+import qcm.common.JdbcTools;
 import qcm.dal.dao.EpreuveDAO;
-import qcm.dal.factory.JdbcTools;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,7 +25,10 @@ public class EpreuveDaoImpl implements EpreuveDAO {
 	private static final String SELECT_ALL_QUERY = "SELECT * FROM Epreuve t";
     private static final String SELECT_ONE_QUERY = "SELECT * FROM Epreuve t WHERE t.idEpreuve = ?";
 	
-    private static final String JOIN_QUESTION_TIRAGE = " JOIN QuestionTirage t2 ON t.idEpreuve = t2.idEpreuve";
+    //private static final String JOIN_QUESTION_TIRAGE = " JOIN QuestionTirage t2 ON t.idEpreuve = t2.idEpreuve";
+    
+    private static final String SELECT_QUESTION_TIRAGE = "SELECT * FROM QuestionTirage t WHERE t.idEpreuve = ?";
+    
     
     private static EpreuveDaoImpl instance;
     
@@ -63,6 +69,8 @@ public class EpreuveDaoImpl implements EpreuveDAO {
 
             while (resultSet.next()) {
             	object = resultSetToObject(resultSet);
+            	ArrayList<QuestionTirage> questionTirages = buildQuestionTirages(object.getIdEpreuve());
+            	object.setQuestionTirages(questionTirages);
             }
         } catch(SQLException e) {
             throw new DaoException(e.getMessage(), e);
@@ -99,17 +107,60 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         return list;
     }
     
-    private Epreuve resultSetToObject(ResultSet resultSet) throws SQLException {
+    private Epreuve resultSetToObject(ResultSet resultSet) throws SQLException, DaoException {
         
     	Epreuve object = new Epreuve();
-        object.setIdEpreuve(resultSet.getInt("idTest"));
-
-        //TODO
-        //...
+        object.setIdEpreuve(resultSet.getInt("idEpreuve"));
+        object.setDateDebutValidite(resultSet.getTimestamp("dateDebutValidite"));
+        object.setDateFinValidite(resultSet.getTimestamp("dateFinValidite"));
+        object.setTempsEcoule(resultSet.getInt("tempsEcoule"));
+        object.setEtat(resultSet.getInt("etat"));
+        object.setNoteObtenu(resultSet.getDouble("noteObtenu"));
+        object.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
+        
+        TestDaoImpl testDao = new TestDaoImpl();
+        Test test = testDao.selectById(resultSet.getInt("idTest"));
+        object.setTest(test);
         
         return object;
-        
     }
+    
+    private QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException {
+    	QuestionTirage object = new QuestionTirage();
+    	object.setIdEpreuve(resultSet.getInt("idTest"));
+    	object.setIdQuestion(resultSet.getInt("idQuestion"));
+    	object.setEstMarquee(JdbcTools.IntToBoolean(resultSet.getInt("estMarquee")));
+    	object.setNumOrdre(resultSet.getInt("numOrdre"));
+    	return object;
+    }
+
+	private ArrayList<QuestionTirage> buildQuestionTirages(Integer idEpreuve) throws DaoException{
+		
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+		ArrayList<QuestionTirage> list = new ArrayList<QuestionTirage>();
+        
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(SELECT_QUESTION_TIRAGE);
+            resultSet = statement.executeQuery();
+            
+            statement.setInt(1, idEpreuve);
+            resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                list.add(resultSetToQuestionTirage(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+		
+		
+		return list;
+	}
 
 	@Override
 	public Epreuve insert(Epreuve element) throws DaoException {
@@ -128,8 +179,4 @@ public class EpreuveDaoImpl implements EpreuveDAO {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
-
 }
