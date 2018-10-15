@@ -75,8 +75,10 @@ public class QuestionDaoImpl implements QuestionDAO {
     
     private Question resultSetToObject(ResultSet resultSet) throws SQLException, DaoException {
         
+    	Integer idQuestion = resultSet.getInt("idQuestion");
+    	
         Question object = new Question();
-        object.setIdQuestion(resultSet.getInt("idQuestion"));
+        object.setIdQuestion(idQuestion);
         object.setEnonce(resultSet.getString("enonce"));
         object.setMedia(resultSet.getString("media"));
         object.setPoints(resultSet.getDouble("points"));
@@ -86,7 +88,7 @@ public class QuestionDaoImpl implements QuestionDAO {
         object.setTheme(theme);
     	
     	PropositionDaoImpl propositionDao = new PropositionDaoImpl();
-    	ArrayList<Proposition> propositions = (ArrayList<Proposition>) propositionDao.selectAll();
+    	ArrayList<Proposition> propositions = (ArrayList<Proposition>) propositionDao.selectByIdQuestion(idQuestion);
         object.setPropositions(propositions);
         
         return object;
