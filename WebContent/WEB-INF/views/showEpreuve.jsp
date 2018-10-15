@@ -35,15 +35,59 @@
 					</div> 
 					<!-- Boucle pour chaque question -->
 					<div class="row">
-						<fieldset>
-							<legend>question</legend>
-							<form action="?id=445">
-								<input type="checkbox" value="IDQUESTION"> question
-								<input type="checkbox" value="IDQUESTION"> question 
-								<input type="checkbox" value="IDQUESTION"> question 
-								<input name="questions[1][P1]" type="checkbox" value="IDQUESTION"> question  
-							</form>
-						</fieldset>
+						<form action="processEpreuve">
+						
+							<c:forEach items="${ questionTirages }" var="questionTirage">
+								<fieldset>
+								
+									<div class="blockQuestion">
+										<h2>
+											Question n° ${ questionTirage.getNumOrdre() }
+											- ${ questionTirage.getQuestion().getTheme().getLibelle() }
+										</h2>
+										
+										<br/>estMarquee: ${ questionTirage.getEstMarquee() }
+										
+										<br> ${ questionTirage.getQuestion().getPoints() } points
+										
+										<legend>
+											${ questionTirage.getQuestion().getEnonce() }
+											<img scr="${ questionTirage.getQuestion().getMedia() }"></img>
+										</legend>
+									</div>
+
+									
+									<div class="blockProposition">
+										<ul>
+										
+										<c:forEach items="${ questionTirage.getQuestion().getPropositions() }" var="proposition">
+											<li>
+												
+												${ proposition.getIdProposition() }
+											
+												<input 
+													type="checkbox" 
+													name="questions[${ questionTirage.getNumOrdre() }][${ proposition.getIdProposition() }]"
+													value="1"
+												/>
+												
+												${ proposition.getEnonce() }
+												
+											</li>
+										</c:forEach>
+										</ul>
+									</div>
+
+									
+									
+								
+								
+									
+
+								</fieldset>
+							</c:forEach>
+						
+						</form>
 						<input type="submit" value="Envoyer">
 					</div>
 				</div>
