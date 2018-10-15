@@ -15,10 +15,12 @@
 <body>
 	<%@include file="include/menu.jsp" %>
 	<jsp:include page="/WEB-INF/views/include/header.jsp">
-		<jsp:param name="title" value="Epreuve"/>
+		<jsp:param name="title" value="${ epreuve.test.libelle } : ${ epreuve.test.description } - (${ epreuve.test.duree } minutes)"/>
     </jsp:include>
+    
 
 	<div class="container">
+	
 		<div class="row">
 			<div class="list-group col-2">
 			  <a href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>
@@ -39,9 +41,6 @@
 				<div class="row">
 					<form action="processEpreuve">
 						
-						<h3>${ epreuve.test.libelle }</h3>
-						<p>${ epreuve.test.description } ( ${ epreuve.test.duree }  - minutes) </p>
-							
 						<c:forEach items="${ questionTirages }" var="questionTirage">
 							<div class="row form_question form_num_${ questionTirage.getNumOrdre() }" >
 								
@@ -60,13 +59,14 @@
 								<ul>
 									<c:forEach items="${ questionTirage.getQuestion().getPropositions() }" var="proposition">
 										<li>
-											${ proposition.getIdProposition() }
-											<input 
-												type="checkbox" 
-												name="questions[${ questionTirage.getNumOrdre() }][${ proposition.getIdProposition() }]"
-												value="1"
-											/>
-											${ proposition.getEnonce() }
+											<label>
+												<input 
+													type="checkbox" 
+													name="questions[${ questionTirage.getNumOrdre() }][${ proposition.getIdProposition() }]"
+													value="1"
+												/>
+												${ proposition.getEnonce() }
+											</label>
 										</li>
 									</c:forEach>
 								</ul>

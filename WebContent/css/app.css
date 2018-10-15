@@ -58,3 +58,7 @@ img {
 .form_question{
 	display: none;
 }
+
+.form_question li{
+	list-style-type: none;
+}
