@@ -205,4 +205,17 @@ GO
 SET IDENTITY_INSERT [dbo].[Theme] OFF
 GO
 
+GO 
+SET IDENTITY_INSERT [dbo].[Theme] OFF 
+GO 
+ 
+SET IDENTITY_INSERT [dbo].[SectionTest] ON  
+GO 
+INSERT [dbo].[SectionTest] ([idSectionTest], [idTest], [idTheme], [nbQuestionATirer]) VALUES (1, 1, 1, 2) 
+GO 
+INSERT [dbo].[SectionTest] ([idSectionTest], [idTest], [idTheme], [nbQuestionATirer]) VALUES (2, 2, 2, 4) 
+GO 
+SET IDENTITY_INSERT [dbo].[SectionTest] OFF 
+GO 
+
 
