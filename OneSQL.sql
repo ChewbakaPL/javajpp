@@ -113,3 +113,83 @@ GO
 SET ANSI_PADDING OFF
 
 GO
+
+
+
+/************************************* DATA *********************************************/
+USE [javaQCM]
+GO
+SET IDENTITY_INSERT [dbo].[Utilisateur] ON 
+
+GO
+INSERT [dbo].[Utilisateur] ([idUtilisateur], [nom], [prenom], [email], [password], [type]) VALUES (1, N'totoNom', N'totoPrenom', N'admin@campus-eni.fr', N'admin', N'admin')
+GO
+INSERT [dbo].[Utilisateur] ([idUtilisateur], [nom], [prenom], [email], [password], [type]) VALUES (2, N'adminNom', N'adminPrenom', N'toto@campus-eni.fr', N'toto', N'user')
+GO
+SET IDENTITY_INSERT [dbo].[Utilisateur] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Test] ON 
+
+GO
+INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (1, N'test1', N'le premier test', 60, CAST(20 AS Decimal(18, 0)), CAST(10 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (2, N'test2', N'le second test', 120, CAST(30 AS Decimal(18, 0)), CAST(20 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (3, N'test3', N'le troisième test', 360, CAST(2 AS Decimal(18, 0)), CAST(1 AS Decimal(18, 0)))
+GO
+SET IDENTITY_INSERT [dbo].[Test] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Epreuve] ON 
+
+GO
+INSERT [dbo].[Epreuve] ([idEpreuve], [dateDebutValidite], [dateFinValidite], [tempsEcoule], [etat], [noteObtenu], [niveauObtenu], [idTest], [idUtilisateur]) VALUES (4, 999999, 999999, 50, 1, CAST(11 AS Decimal(18, 0)), 11, 1, 2)
+GO
+INSERT [dbo].[Epreuve] ([idEpreuve], [dateDebutValidite], [dateFinValidite], [tempsEcoule], [etat], [noteObtenu], [niveauObtenu], [idTest], [idUtilisateur]) VALUES (6, 999999, 999999, 60, 1, CAST(22 AS Decimal(18, 0)), 22, 2, 2)
+GO
+SET IDENTITY_INSERT [dbo].[Epreuve] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Question] ON 
+
+GO
+INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (1, N'premiere question', NULL, CAST(10 AS Decimal(18, 0)), 1)
+GO
+INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (2, N'deuxieme question', NULL, CAST(20 AS Decimal(18, 0)), 2)
+GO
+SET IDENTITY_INSERT [dbo].[Question] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Proposition] ON 
+
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (1, N'reponse D', 1, 1)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (2, N'je sais pas', 0, 1)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (3, N'reponse C', 1, 1)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (5, N'1', 1, 2)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (7, N'2', 0, 2)
+GO
+SET IDENTITY_INSERT [dbo].[Proposition] OFF
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (1, 1)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (1, 2)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (1, 3)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (2, 5)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (2, 7)
+GO
+SET IDENTITY_INSERT [dbo].[Theme] ON 
+
+GO
+INSERT [dbo].[Theme] ([idTheme], [libelle]) VALUES (1, N'Informatique')
+GO
+INSERT [dbo].[Theme] ([idTheme], [libelle]) VALUES (2, N'Economie')
+GO
+SET IDENTITY_INSERT [dbo].[Theme] OFF
+GO
+
+
