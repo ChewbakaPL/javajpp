@@ -25,71 +25,68 @@
 			</div>
 			<div class="col-md-8 col-md-offset-2">
 				<div class="mainBox">
-					<div class="row">
+				<div class="row">
+					<div class="box_question">
+						<c:forEach items="${ questionTirages }" var="questionTirage">
+							<span>${ questionTirage.getNumOrdre() }</span>
+						</c:forEach>
+					</div>
+				</div>
+					
+				<!-- Boucle pour chaque question -->
+
+
+				<div class="row">
+					<form action="processEpreuve">
+						
 						<h3>${ epreuve.test.libelle }</h3>
 						<p>${ epreuve.test.description } ( ${ epreuve.test.duree }  - minutes) </p>
-						<div id="questionsPanel">
-							<!-- Boucle pour chaque question -->
-							<span class="quetionCarret"></span>
-						</div>
-					</div> 
-					<!-- Boucle pour chaque question -->
-					<div class="row">
-						<form action="processEpreuve">
-						
-							<c:forEach items="${ questionTirages }" var="questionTirage">
-								<fieldset>
+							
+						<c:forEach items="${ questionTirages }" var="questionTirage">
+							<div class="row form_question form_num_${ questionTirage.getNumOrdre() }" >
 								
-									<div class="blockQuestion">
-										<h2>
-											Question n° ${ questionTirage.getNumOrdre() }
-											- ${ questionTirage.getQuestion().getTheme().getLibelle() }
-										</h2>
-										
-										<br/>estMarquee: ${ questionTirage.getEstMarquee() }
-										
-										<br> ${ questionTirage.getQuestion().getPoints() } points
-										
-										<legend>
-											${ questionTirage.getQuestion().getEnonce() }
-											<img scr="${ questionTirage.getQuestion().getMedia() }"></img>
-										</legend>
-									</div>
-
-									
-									<div class="blockProposition">
-										<ul>
-										
-										<c:forEach items="${ questionTirage.getQuestion().getPropositions() }" var="proposition">
-											<li>
-												
-												${ proposition.getIdProposition() }
-											
-												<input 
-													type="checkbox" 
-													name="questions[${ questionTirage.getNumOrdre() }][${ proposition.getIdProposition() }]"
-													value="1"
-												/>
-												
-												${ proposition.getEnonce() }
-												
-											</li>
-										</c:forEach>
-										</ul>
-									</div>
-
-									
-									
+								<!--  QUESTION -->
+								<h2>Question n° ${ questionTirage.getNumOrdre() } - ${ questionTirage.getQuestion().getTheme().getLibelle() }</h2>
+								<!-- 
+								<br/>estMarquee: ${ questionTirage.getEstMarquee() }
+								<br> ${ questionTirage.getQuestion().getPoints() } points
+								-->
+								<legend>
+									${ questionTirage.getQuestion().getEnonce() }
+									<img scr="${ questionTirage.getQuestion().getMedia() }"></img>
+								</legend>
 								
+								<!-- PROPOSITION -->
+								<ul>
+									<c:forEach items="${ questionTirage.getQuestion().getPropositions() }" var="proposition">
+										<li>
+											${ proposition.getIdProposition() }
+											<input 
+												type="checkbox" 
+												name="questions[${ questionTirage.getNumOrdre() }][${ proposition.getIdProposition() }]"
+												value="1"
+											/>
+											${ proposition.getEnonce() }
+										</li>
+									</c:forEach>
+								</ul>
 								
-									
-
-								</fieldset>
-							</c:forEach>
-						
-						</form>
+							</div>
+						</c:forEach>
+							
 						<input type="submit" value="Envoyer">
-					</div>
+						</div>
+					
+					</form>
+				</div>
+
+
+					
+					
+
+
+					
+					
 				</div>
 			</div>
 		</div>

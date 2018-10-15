@@ -2,24 +2,32 @@ package qcm.bo;
 
 public class SectionTest {
 
+	private Integer idSectionTest;
+	private Integer idTest;
 	private Integer nbQuestionATirer;
-	private Test test;
 	private Theme theme;
 	
 	public SectionTest() {
 		super();
+	}
+	
+	public Integer getIdSectionTest() {
+		return idSectionTest;
+	}
+	public void setIdSectionTest(Integer idSectionTest) {
+		this.idSectionTest = idSectionTest;
+	}
+	public Integer getIdTest() {
+		return idTest;
+	}
+	public void setIdTest(Integer idTest) {
+		this.idTest = idTest;
 	}
 	public Integer getNbQuestionATirer() {
 		return nbQuestionATirer;
 	}
 	public void setNbQuestionATirer(Integer nbQuestionATirer) {
 		this.nbQuestionATirer = nbQuestionATirer;
-	}
-	public Test getTest() {
-		return test;
-	}
-	public void setTest(Test test) {
-		this.test = test;
 	}
 	public Theme getTheme() {
 		return theme;

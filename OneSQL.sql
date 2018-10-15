@@ -116,6 +116,19 @@ GO
 
 
 
+/****** Object:  Table [dbo].[SectionTest] ******/
+
+CREATE TABLE [dbo].[SectionTest](
+	[idSectionTest] [int] NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+	[idTest] [int] NOT NULL FOREIGN KEY REFERENCES Test(idTest),
+	[idTheme] [int] NOT NULL FOREIGN KEY REFERENCES Theme(idTheme),
+	[nbQuestionATirer] [int] NOT NULL 
+) ON [PRIMARY]
+
+GO
+
+
+
 /************************************* DATA *********************************************/
 USE [javaQCM]
 GO

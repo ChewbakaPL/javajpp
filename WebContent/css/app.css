@@ -21,7 +21,8 @@ img {
 .mainBox{
 	border: 1px solid gray;
 	border-radius: 20px;
-	padding: 10px
+	padding: 30px
+	
 }
 
 .table-hover tr{
@@ -29,4 +30,31 @@ img {
 }
 .table-hover th{
 	cursor: default;
+}
+
+.box_question {
+    margin-bottom: 35px;
+}
+
+.box_question span {
+	border: 1px solid black;
+	padding: 5px;
+    background-color: lightgray;
+}
+
+.box_question span:hover{
+	background-color: #e4e4e4;
+}
+
+.box_question span.active { 
+	background-color: #f5f5f5;
+    border: 2px solid black;
+}
+
+.box_question span.anwsered{
+	background-color: green;
+}
+
+.form_question{
+	display: none;
 }

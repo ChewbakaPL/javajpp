@@ -12,6 +12,7 @@ import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Epreuve;
 import qcm.bo.QuestionTirage;
+import qcm.bo.SectionTest;
 import qcm.bo.Test;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.TestDAO;
@@ -70,7 +71,7 @@ public class TestDaoImpl implements TestDAO {
         return list;
     }
     
-    private Test resultSetToObject(ResultSet resultSet) throws SQLException {
+    private Test resultSetToObject(ResultSet resultSet) throws SQLException, DaoException {
         
         Test object = new Test();
         object.setIdTest(resultSet.getInt("idTest"));
@@ -79,6 +80,11 @@ public class TestDaoImpl implements TestDAO {
         object.setDuree(resultSet.getInt("duree"));
         object.setSeuilBas(resultSet.getDouble("seuilBas"));
         object.setSeuilHaut(resultSet.getDouble("seuilHaut"));
+        
+        SectionTestDaoImpl sectionTestDao = new SectionTestDaoImpl();
+        List<SectionTest> sectionTests = sectionTestDao.selectByIdTest(object.getIdTest());
+        object.setSectionTests((ArrayList<SectionTest>) sectionTests);
+        
         return object;
         
     }

@@ -4,11 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
+import qcm.bo.Proposition;
 import qcm.bo.Question;
+import qcm.bo.Test;
+import qcm.bo.Theme;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.QuestionDAO;
 
@@ -18,6 +23,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class QuestionDaoImpl implements QuestionDAO {
 	
 	private static final String SELECT_ONE_QUERY = "SELECT * FROM Question t WHERE t.idQuestion = ?";
+	private static final String SELECT_BY_THEME_AND_LIMIT_QUERY = "SELECT TOP LIMIT * FROM Question t WHERE t.idTheme=?;";
 	
     private static QuestionDaoImpl instance;
     
@@ -67,7 +73,7 @@ public class QuestionDaoImpl implements QuestionDAO {
         return object;
     }
     
-    private Question resultSetToObject(ResultSet resultSet) throws SQLException {
+    private Question resultSetToObject(ResultSet resultSet) throws SQLException, DaoException {
         
         Question object = new Question();
         object.setIdQuestion(resultSet.getInt("idQuestion"));
@@ -75,17 +81,13 @@ public class QuestionDaoImpl implements QuestionDAO {
         object.setMedia(resultSet.getString("media"));
         object.setPoints(resultSet.getDouble("points"));
         
-        /*
-        //TODO ThemeDao
-        ThemeDaoImpl themeDao = new ThemeDao();
-        Theme theme = ThemeDao.selectById(resultSet.getInt("idTheme"));
+        ThemeDaoImpl themeDao = new ThemeDaoImpl();
+        Theme theme = themeDao.selectById(resultSet.getInt("idTheme"));
         object.setTheme(theme);
     	
-        //TODO PropositionDao
     	PropositionDaoImpl propositionDao = new PropositionDaoImpl();
-    	ArrayList<Proposition> propositions = propositionDao.selectAll();
+    	ArrayList<Proposition> propositions = (ArrayList<Proposition>) propositionDao.selectAll();
         object.setPropositions(propositions);
-        */
         
         return object;
     }
@@ -113,6 +115,36 @@ public class QuestionDaoImpl implements QuestionDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+    @Override
+    public List<Question> selectByTheme(Integer idTheme, Integer nbQuestionATirer) throws DaoException {
+        
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Question> list = new ArrayList<>();
+        
+        try {
+            connection = getConnection();
+            
+            String newReqMerciSQLServer = SELECT_BY_THEME_AND_LIMIT_QUERY.replaceFirst("LIMIT",nbQuestionATirer.toString());
+            statement = connection.prepareStatement(newReqMerciSQLServer);
+            
+            //statement.setInt(1, nbQuestionATirer);
+            statement.setInt(1, idTheme);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                list.add(resultSetToObject(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return list;
+    }
 	
 	
 	

@@ -17,6 +17,7 @@ public class Test implements Serializable {
     
    	public Test() {
    		super();
+   		sectionTests = new ArrayList<SectionTest>();
    	}
    	
     

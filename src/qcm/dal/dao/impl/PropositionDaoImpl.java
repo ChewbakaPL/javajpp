@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Proposition;
-import qcm.bo.Question;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.PropositionDAO;
 
@@ -20,8 +20,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class PropositionDaoImpl implements PropositionDAO {
 	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private static final String SELECT_BY_QUESTION_QUERY = "SELECT * FROM Proposition WHERE idQuestion=?";
+	private static final String SELECT_ALL_QUERY = "SELECT * FROM Proposition t";
+	private static final String SELECT_BY_QUESTION_QUERY = "SELECT * FROM Proposition t WHERE t.idQuestion=?";
        
+    
     
     private static PropositionDaoImpl instance;
     
@@ -80,14 +82,41 @@ public class PropositionDaoImpl implements PropositionDAO {
         return object;
     }
 
+	
+	
+    @Override
+    public List<Proposition> selectAll() throws DaoException {
+        
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        List<Proposition> list = new ArrayList<>();
+        
+        try {
+            connection = getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(SELECT_ALL_QUERY);
+
+            while (resultSet.next()) {
+                list.add(resultSetToObject(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return list;
+    }
+
 	@Override
-	public Question insert(Question element) throws DaoException {
+	public Proposition insert(Proposition element) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(Question element) throws DaoException {
+	public void update(Proposition element) throws DaoException {
 		// TODO Auto-generated method stub
 		
 	}
@@ -99,13 +128,7 @@ public class PropositionDaoImpl implements PropositionDAO {
 	}
 
 	@Override
-	public Question selectById(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Question> selectAll() throws DaoException {
+	public Proposition selectById(Integer id) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
