@@ -39,12 +39,7 @@ public class ShowEpreuveAction extends GenericServlet {
 			Test test = epreuve.getTest();
 			ArrayList<SectionTest> sectionTests = test.getSectionTests();
 
-			System.out.println("--SHOWEPREUVEACTION sectionTests.size() => "+sectionTests.size());
-			
 			for (SectionTest st : sectionTests) {
-				
-				System.out.println("--SHOWEPREUVEACTION PARCOURT SECTION TEST--");
-				
 				Integer idTheme = st.getTheme().getIdTheme();
 				Integer nbQuestionATirer = st.getNbQuestionATirer();
 				
