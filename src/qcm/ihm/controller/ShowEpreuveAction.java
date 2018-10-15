@@ -1,12 +1,16 @@
 package qcm.ihm.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import qcm.bo.Epreuve;
+import qcm.bo.Question;
+import qcm.bo.QuestionTirage;
 import qcm.dal.dao.impl.EpreuveDaoImpl;
 
 
@@ -25,7 +29,10 @@ public class ShowEpreuveAction extends GenericServlet {
 			EpreuveDaoImpl epreuveDAO = new EpreuveDaoImpl();
 			Epreuve epreuve = epreuveDAO.selectById(paramId);
 			
+			ArrayList<QuestionTirage> questionTirages = epreuve.getQuestionTirages();
+			
 			request.setAttribute("epreuve", epreuve);
+			request.setAttribute("questionTirages", questionTirages);
 			request.getRequestDispatcher("/showEpreuveJSP").forward(request, response);
 		} catch (DaoException e) {
 			e.printStackTrace();
