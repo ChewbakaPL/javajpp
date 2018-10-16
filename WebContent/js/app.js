@@ -18,8 +18,9 @@ $(document).ready(function (){
 	
 	$('.sendBtnAjax').click(function (){
 		let idQuestionTirage = $(this).data("question_tirage");
-		let formData = {'data' : $('#form_question_'+ idQuestionTirage).serializeArray()};
+		let formData = $('#form_question_'+ idQuestionTirage).serializeArray();
 		console.log(formData);
+		
 		$.ajax({
 		  type: "POST",
 		  url: 'processEpreuve',
