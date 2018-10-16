@@ -48,7 +48,6 @@ public class PropositionDaoImpl implements PropositionDAO {
     
     @Override
     public ArrayList<Proposition> selectByIdQuestion(Integer idQuestion) throws DaoException {
-        System.out.println(idQuestion);
     	ArrayList<Proposition> list = new ArrayList<Proposition>();
         Connection connection = null;
         PreparedStatement statement = null;
