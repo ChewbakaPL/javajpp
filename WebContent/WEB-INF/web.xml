@@ -68,6 +68,15 @@
     <url-pattern>/showEpreuve</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+    <servlet-name>ProcessEpreuveAction</servlet-name>
+     <servlet-class>qcm.ihm.controller.ProcessEpreuveAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessEpreuveAction</servlet-name>
+    <url-pattern>/processEpreuve</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>showEpreuveJSP</servlet-name>
     <jsp-file>/WEB-INF/views/showEpreuve.jsp</jsp-file>
