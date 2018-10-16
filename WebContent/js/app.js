@@ -1,8 +1,10 @@
 $(document).ready(function (){
+	
 	$("#question_num_1").css('display', 'contents');
 	$('.form_num_1').css('display', 'contents');
 	$("span:contains('1')").addClass('active');
 	$(".box_question span").click(function(){
+		saveForm($(".box_question span.active:first").text()); //get old idQuestionTirage
 		var value = $(this).text();
 		$(".form_question").each(function(){
 			$(this).css('display', 'none');
