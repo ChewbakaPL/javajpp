@@ -29,7 +29,7 @@
 						<div class="row">
 							<div class="box_question">
 								<c:forEach items="${ questionTirages }" var="questionTirage">
-									<span>${ questionTirage.getNumOrdre() }</span>
+									<span data-question_tirage="${ questionTirage.getIdQuestionTirage() }">${ questionTirage.getNumOrdre() }</span>
 								</c:forEach>
 							</div>
 						</div>
@@ -52,11 +52,10 @@
 										</c:forEach>
 									</ul>
 								</div>
-								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary sendBtnAjax">Envoyer</button>
+								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary sendAjax">Envoyer</button>
 							</form>
 						</c:forEach>
 					</div>
-					
 					</div>
 				</div>
 			</div>

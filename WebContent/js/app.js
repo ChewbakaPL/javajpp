@@ -16,11 +16,14 @@ $(document).ready(function (){
 		}
 	});
 	
-	$('.sendBtnAjax').click(function (){
+	$('.sendAjax').click(function (){
 		let idQuestionTirage = $(this).data("question_tirage");
+		saveForm(idQuestionTirage);
+	});
+	
+	function saveForm(idQuestionTirage) {
 		let formData = $('#form_question_'+ idQuestionTirage).serializeArray();
 		console.log(formData);
-		
 		$.ajax({
 		  type: "POST",
 		  url: 'processEpreuve',
@@ -29,5 +32,5 @@ $(document).ready(function (){
 			  console.log("AJAX SUCESS");
 		  }
 		});
-	});
+	}
 });

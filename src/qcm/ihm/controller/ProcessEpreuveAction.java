@@ -28,5 +28,6 @@ public class ProcessEpreuveAction extends GenericServlet {
     	System.out.println("idquestion " + idQuestion);
     	System.out.println("idquestiontirage" + idQuestionTirage);
     	System.out.println("proposition" + idPropositions);
+    	//enregistrer dans la bdd (reponse utilisateur)
     }
 }
