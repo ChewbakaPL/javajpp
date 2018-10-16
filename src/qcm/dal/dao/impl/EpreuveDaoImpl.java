@@ -25,7 +25,6 @@ public class EpreuveDaoImpl implements EpreuveDAO {
 	
 	private static final String SELECT_ALL_QUERY = "SELECT * FROM Epreuve t";
     private static final String SELECT_ONE_QUERY = "SELECT * FROM Epreuve t WHERE t.idEpreuve = ?";
-    private static final String SELECT_QUESTION_TIRAGE = "SELECT * FROM QuestionTirage t WHERE t.idEpreuve = ?";
     private static final String SELECT_BY_USER_QUERY = "SELECT * FROM Epreuve t WHERE t.idUtilisateur = ?";
     
     private static EpreuveDaoImpl instance;
@@ -63,9 +62,11 @@ public class EpreuveDaoImpl implements EpreuveDAO {
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
 
+            QuestionTirageDaoImpl questionTirageDao = new QuestionTirageDaoImpl();
+            
             while (resultSet.next()) {
             	object = resultSetToObject(resultSet);
-            	ArrayList<QuestionTirage> questionTirages = buildQuestionTirages(object.getIdEpreuve());
+            	ArrayList<QuestionTirage> questionTirages = questionTirageDao.selectByIdEpreuve(object.getIdEpreuve());
             	object.setQuestionTirages(questionTirages);
             }
         } catch(SQLException e) {
@@ -103,7 +104,7 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         return list;
     }
     
-    @SuppressWarnings("null")
+    
 	public List<Epreuve> selectByUser(Integer id) throws DaoException {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -145,45 +146,8 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         object.setTest(test);
         return object;
     }
-    
-    private QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException, DaoException {
-    	QuestionTirage object = new QuestionTirage();
-    	object.setIdEpreuve(resultSet.getInt("idTest"));
-    	
-    	QuestionDaoImpl questionDao = new QuestionDaoImpl();
-        Question question = questionDao.selectById(resultSet.getInt("idQuestion"));
-        object.setQuestion(question);
-    	
-    	object.setEstMarquee(JdbcTools.IntToBoolean(resultSet.getInt("estMarquee")));
-    	object.setNumOrdre(resultSet.getInt("numOrdre"));
-    	return object;
-    }
 
-	private ArrayList<QuestionTirage> buildQuestionTirages(Integer idEpreuve) throws DaoException{
-		
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-		ArrayList<QuestionTirage> list = new ArrayList<QuestionTirage>();
-        
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement(SELECT_QUESTION_TIRAGE);        
-            statement.setInt(1, idEpreuve);
-            resultSet = statement.executeQuery();
-            
-            while (resultSet.next()) {
-                list.add(resultSetToQuestionTirage(resultSet));
-            }
-        } catch(SQLException e) {
-            throw new DaoException(e.getMessage(), e);
-        } finally {
-            ResourceUtil.safeClose(resultSet, statement, connection);
-        }
-		
-		
-		return list;
-	}
+
 
 	@Override
 	public Epreuve insert(Epreuve element) throws DaoException {
