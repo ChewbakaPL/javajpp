@@ -90,6 +90,7 @@ GO
 
 
 CREATE TABLE [dbo].[QuestionTirage](
+	[idQuestionTirage] [int] NOT NULL IDENTITY(1, 1) PRIMARY KEY,
 	[idEpreuve] [int] NOT NULL FOREIGN KEY REFERENCES Epreuve(idEpreuve),
 	[idQuestion] [int] NOT NULL FOREIGN KEY REFERENCES Question(idQuestion),
 	[estMarquee] [tinyint] NOT NULL,

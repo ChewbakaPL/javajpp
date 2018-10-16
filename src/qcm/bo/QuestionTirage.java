@@ -1,6 +1,7 @@
 package qcm.bo;
 
 public class QuestionTirage {
+	private int idQuestionTirage;
 	private int idEpreuve;
 	private Question question;
 	private Boolean estMarquee;
@@ -9,7 +10,12 @@ public class QuestionTirage {
 	public QuestionTirage() {
 		super();
 	}
-	
+	public int getIdQuestionTirage() {
+		return idQuestionTirage;
+	}
+	public void setIdQuestionTirage(int idQuestionTirage) {
+		this.idQuestionTirage = idQuestionTirage;
+	}
 	public int getIdEpreuve() {
 		return idEpreuve;
 	}

@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
 	<%@include file="include/menu.jsp" %>
 	<jsp:include page="/WEB-INF/views/include/header.jsp">
 		<jsp:param name="title" value="${ epreuve.test.libelle } : ${ epreuve.test.description } - (${ epreuve.test.duree } minutes)"/>
@@ -34,51 +33,28 @@
 								</c:forEach>
 							</div>
 						</div>
-							
-						<!-- Boucle pour chaque question -->
-		
-		
 						<div class="row">
-						<form id="formEpreuve" action="processEpreuve" method="POST">
-							
-							<input type="hidden" name="idEpreuve" value="${ epreuve.getIdEpreuve() }"/>
-							
-							<c:forEach items="${ questionTirages }" var="questionTirage">
-								<div class="row form_question form_num_${ questionTirage.getNumOrdre() }" >
-									
-									<!--  QUESTION -->
+						<c:forEach items="${ questionTirages }" var="questionTirage">
+							<form id="form_question_${ questionTirage.getIdQuestionTirage() }" action="processEpreuve" method="POST">
+								<input type="hidden" name="idQuestionTirage" value="${ questionTirage.getIdQuestionTirage() }"/>
+								<input type="hidden" name="idQuestion" value="${ questionTirage.getQuestion().getIdQuestion() }"/>
+								<div class="row form_question form_num_${ questionTirage.getNumOrdre() }" >									
 									<h2>Question n° ${ questionTirage.getNumOrdre() } - ${ questionTirage.getQuestion().getTheme().getLibelle() }</h2>
-									<!-- 
-									<br/>estMarquee: ${ questionTirage.getEstMarquee() }
-									<br> ${ questionTirage.getQuestion().getPoints() } points
-									-->
-									<legend>
-										${ questionTirage.getQuestion().getEnonce() }
-										<img scr="${ questionTirage.getQuestion().getMedia() }"></img>
-									</legend>
-									
-									<!-- PROPOSITION -->
+									<p>${ questionTirage.getQuestion().getEnonce() }</p>
 									<ul>
 										<c:forEach items="${ questionTirage.getQuestion().getPropositions() }" var="proposition">
 											<li>
 												<label>
-													<input 
-														type="checkbox" 
-														name="questions[${ questionTirage.getNumOrdre() }][${ proposition.getIdProposition() }]"
-														value="1"
-													/>
+													<input type="checkbox" name="reponseUtilisateur" value="${ proposition.getIdProposition() }" />
 													${ proposition.getEnonce() }
 												</label>
 											</li>
 										</c:forEach>
 									</ul>
-									
 								</div>
-							</c:forEach>
-								
-							<button onclick="sendData()" type="button" class="btn btn-primary">Envoyer</button>
-						
-						</form>
+								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary sendBtnAjax">Envoyer</button>
+							</form>
+						</c:forEach>
 					</div>
 					
 					</div>
