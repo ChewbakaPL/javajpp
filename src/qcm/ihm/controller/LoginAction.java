@@ -59,7 +59,6 @@ public class LoginAction extends GenericServlet {
             } else {
             	List<Epreuve> listEpreuve = new ArrayList<Epreuve>();
 				try {
-					System.out.println(currentUser.getIdUtilisateur());
 					listEpreuve = epreuveDao.selectByUser(currentUser.getIdUtilisateur());
 					
 				} catch (DaoException e) {

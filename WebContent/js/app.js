@@ -21,7 +21,6 @@ function sendData(){
 	let url = 'processEpreuve';
 	let formData = $('#formEpreuve').serializeArray();
 	
-	//let realArray = [];
 	let realObject = {};
 	Object.entries(formData).forEach(([index, obj]) => {
 	  var inputName = obj.name;
@@ -45,33 +44,18 @@ function sendData(){
 	  }
 	});
 	
-	//realArray["nbQuestion"] = realArray.length;
 	realObject["nbQuestion"] = Object.keys(realObject).length
-	
-	
+	realObject["idEpreuve"] = $("#formEpreuve").find("input[name='idEpreuve']").val();
+		
 	console.log("realObject:");
 	console.log(realObject);
-	
-	
-	//JSON FAIL
-	//let jsonString = JSON.stringify(formData);
-	//let jsonString = JSON.stringify(realArray);
-	//console.log("jsonString:");
-	//console.log(jsonString);
-	  
-	//let dataToSend = {json:jsonString},
-	  
-	  
-	let dataToSend = realObject;
-	
 	
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: dataToSend,
+	  data: realObject,
 	  success: function(){
 		  console.log("AJAX SUCESS");
-		  console.log(postData);
 	  }
 	});
 }

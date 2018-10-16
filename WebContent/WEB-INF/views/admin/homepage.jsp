@@ -19,19 +19,21 @@
 		<jsp:param name="title" value="Acceuil (Administrateur)"/>
     </jsp:include>
 	
-	<div class="container">
-		<div class="row">
-			<div class="list-group col-2">
-			  <a href="#" class="list-group-item list-group-item-action"> Deconnecter </a>
-			</div>
-			<div class="col-8">
-				<div class="mainBox">
-				fais tout peter wesh administrator
+	<div class="page-wrapper">
+		<div class="page-content">
+			<div class="row">
+				<div class="list-group col-2">
+				  <a href="#" class="list-group-item list-group-item-action"> Deconnecter </a>
+				</div>
+				<div class="col-8">
+					<div class="mainBox">
+					fais tout peter wesh administrator
+					</div>
 				</div>
 			</div>
 		</div>
+		<%@include file="../include/footer.jsp" %>
 	</div>
-
-	<%@include file="../include/footer.jsp" %>
+	
 	<%@include file="../include/scripts.jsp" %>
 </body>

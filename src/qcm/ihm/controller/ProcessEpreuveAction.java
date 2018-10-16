@@ -37,32 +37,11 @@ public class ProcessEpreuveAction extends GenericServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-    	/* JSON FAIL
-    	String jsonString = request.getParameter("json");
-    	System.out.println("JAVA INPUT questions[]:");
-    	System.out.println(jsonString);
-    	
-    	JSONParser parser = new JSONParser();
-    	JSONObject jsonObject = null;
-		try {
-			jsonObject = (JSONObject) parser.parse(jsonString);
-			
-			System.out.println("AVANT ITERATION");
-			for(Iterator iterator = jsonObject.keySet().iterator(); iterator.hasNext();) {
-			    String key = (String) iterator.next();
-			    
-			    System.out.println(key);
-			    System.out.println(jsonObject.get(key));
-			}
-			System.out.println("APRES ITERATION");
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-    	System.out.println(jsonObject);
-    	*/
-    	
+    	Integer idEpreuve = Integer.parseInt(request.getParameter("idEpreuve"));
     	Integer nbQuestion = Integer.parseInt(request.getParameter("nbQuestion"));
+    	
+    	System.out.println("idEpreuve: "+idEpreuve);
+    	
     	for (int i=1; i<=nbQuestion; i++) {
     		String key = "question"+i;
     		

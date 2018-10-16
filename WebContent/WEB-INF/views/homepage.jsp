@@ -18,38 +18,40 @@
 		<jsp:param name="title" value="Acceuil (Utilisateur)"/>
     </jsp:include>
 	
-	<div class="container">
-		<div class="row">
-			<div class="list-group col-2">
-			  <a href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>
-			</div>
-			<div class="col-8">
-				<div class="mainBox">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>Libelle</th>
-								<th>Description</th>
-								<th>Duree</th>
-								<th>Start</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${ epreuves }" var="epreuve">
+	<div class="page-wrapper">
+		<div class="page-content">
+			<div class="row">
+				<div class="list-group col-2">
+				  <a href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>
+				</div>
+				<div class="col-8">
+					<div class="mainBox">
+						<table class="table table-hover">
+							<thead>
 								<tr>
-									<td>${ epreuve.test.libelle }</td>
-									<td>${ epreuve.test.description }</td>
-									<td>${ epreuve.test.duree }</td>
-									<td><a class="btn btn-primary" href="${pageContext.request.contextPath }/showEpreuve?id=${ epreuve.idEpreuve }"> Demarrer le test</a></td>
+									<th>Libelle</th>
+									<th>Description</th>
+									<th>Duree</th>
+									<th>Start</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<c:forEach items="${ epreuves }" var="epreuve">
+									<tr>
+										<td>${ epreuve.test.libelle }</td>
+										<td>${ epreuve.test.description }</td>
+										<td>${ epreuve.test.duree }</td>
+										<td><a class="btn btn-primary" href="${pageContext.request.contextPath }/showEpreuve?id=${ epreuve.idEpreuve }"> Demarrer le test</a></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
+		<%@include file="include/footer.jsp" %>
 	</div>
-
-	<%@include file="include/footer.jsp" %>
+	
 	<%@include file="include/scripts.jsp" %>
 </body>
