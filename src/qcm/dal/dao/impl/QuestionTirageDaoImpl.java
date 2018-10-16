@@ -73,7 +73,6 @@ public class QuestionTirageDaoImpl implements QuestionTirageDAO {
 	}
     
     private QuestionTirage resultSetToObject(ResultSet resultSet) throws SQLException, DaoException {
-        
     	QuestionTirage object = new QuestionTirage();
     	object.setIdQuestionTirage(resultSet.getInt("idQuestionTirage"));
     	object.setIdEpreuve(resultSet.getInt("idEpreuve"));

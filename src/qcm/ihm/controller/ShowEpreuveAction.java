@@ -31,11 +31,14 @@ public class ShowEpreuveAction extends GenericServlet {
     	Integer paramId = Integer.parseInt(parameter);
     	
     	try {
+    		ArrayList<QuestionTirage> questionTirages = new ArrayList<QuestionTirage>();
+    		List<Question> randomQuestions =  new ArrayList<Question>();
+    		
 			EpreuveDaoImpl epreuveDAO = new EpreuveDaoImpl();
 			Epreuve epreuve = epreuveDAO.selectById(paramId);
 			
-			//==== GENERATION questionTirages =====
-			ArrayList<QuestionTirage> questionTirages = new ArrayList<QuestionTirage>();
+			/*
+			//==== GENERATION questionTirages => a inserer en bdd =====
 			Test test = epreuve.getTest();
 			ArrayList<SectionTest> sectionTests = test.getSectionTests();
 
@@ -56,6 +59,16 @@ public class ShowEpreuveAction extends GenericServlet {
 				}
 			}
 			//=====================================
+			 */
+			
+			//ou
+			
+			//==== RECUPERATION questionTirages =====
+			questionTirages = questionTirageDao.selectByIdEpreuve(epreuve.getIdEpreuve());
+			//for (QuestionTirage qt : questionTirages) {
+			//	randomQuestions.add( qt.getQuestion() );
+			//}
+			//=======================================
 			
 			
 			request.setAttribute("epreuve", epreuve);
