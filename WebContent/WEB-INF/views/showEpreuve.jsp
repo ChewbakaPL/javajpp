@@ -39,7 +39,7 @@
 
 
 				<div class="row">
-					<form action="processEpreuve">
+					<form id="formEpreuve" action="processEpreuve" method="POST">
 						
 						<c:forEach items="${ questionTirages }" var="questionTirage">
 							<div class="row form_question form_num_${ questionTirage.getNumOrdre() }" >
@@ -74,8 +74,7 @@
 							</div>
 						</c:forEach>
 							
-						<input type="submit" value="Envoyer">
-						</div>
+						<button onclick="sendData()" type="button" class="btn btn-primary">Envoyer</button>
 					
 					</form>
 				</div>
