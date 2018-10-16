@@ -86,13 +86,4 @@
     <url-pattern>/showEpreuveJSP</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>endEpreuveAction</servlet-name>
-    <servlet-class>qcm.ihm.controller.EndEpreuveAction</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>endEpreuveAction</servlet-name>
-    <url-pattern>/processEpreuve</url-pattern>
-  </servlet-mapping>
-  
 </web-app>
