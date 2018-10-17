@@ -22,40 +22,37 @@ public class ProcessEpreuveAction extends GenericServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	String idQuestionTirageStr = request.getParameter("idQuestionTirage");
-    	Integer idQuestionTirage = Integer.parseInt(idQuestionTirageStr);
-    	
-    	QuestionTirage questionTirage = null;
-		try {
-			questionTirage = questionTirageDao.selectById(idQuestionTirage);
-		} catch (DaoException e1) {
-			e1.printStackTrace();
-		}
-    	
-    	String[] reponses = request.getParameterValues("reponseUtilisateur");
-    	try {
-			reponseUtilisateurDao.delete(idQuestionTirage);
-		} catch (DaoException e2) {
-			e2.printStackTrace();
-		}
-    	
-    	for(String reponse: reponses){
-    		Integer idProposition = Integer.parseInt(reponse);
+    	if (request.getParameter("reponseUtilisateur") != null){
+    		String idQuestionTirageStr = request.getParameter("idQuestionTirage");
+        	Integer idQuestionTirage = Integer.parseInt(idQuestionTirageStr);
         	
-        	//enregistrement de la reponse de l'utilisateur (propositions coches pour cette question) :
-        	ReponseUtilisateur reponseUtilisateur = new ReponseUtilisateur();
-        	reponseUtilisateur.setIdQuestionTirage(idQuestionTirage);
-        	reponseUtilisateur.setIdProposition(idProposition);
-        	//recuperation de la question (non indispensable) :
-        	Question question = questionTirage.getQuestion();
-        	reponseUtilisateur.setIdQuestion(question.getIdQuestion());
+        	QuestionTirage questionTirage = null;
+    		try {
+    			questionTirage = questionTirageDao.selectById(idQuestionTirage);
+    		} catch (DaoException e1) {
+    			e1.printStackTrace();
+    		}
         	
+        	String[] reponses = request.getParameterValues("reponseUtilisateur");
         	try {
-				reponseUtilisateurDao.insert(reponseUtilisateur);
-			} catch (DaoException e) {
-				e.printStackTrace();
-			}
+    			reponseUtilisateurDao.delete(idQuestionTirage);
+    		} catch (DaoException e2) {
+    			e2.printStackTrace();
+    		}
+        	
+        	for(String reponse: reponses){
+        		Integer idProposition = Integer.parseInt(reponse);
+            	ReponseUtilisateur reponseUtilisateur = new ReponseUtilisateur();
+            	reponseUtilisateur.setIdQuestionTirage(idQuestionTirage);
+            	reponseUtilisateur.setIdProposition(idProposition);
+            	Question question = questionTirage.getQuestion();
+            	reponseUtilisateur.setIdQuestion(question.getIdQuestion());
+            	try {
+    				reponseUtilisateurDao.insertVoid(reponseUtilisateur);
+    			} catch (DaoException e) {
+    				e.printStackTrace();
+    			}
+        	}
     	}
     }
 }

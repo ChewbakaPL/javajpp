@@ -82,12 +82,10 @@ public class ReponseUtilisateurDaoImpl implements ReponseUtilisateurDAO {
         return list;
 	}
 
-	@Override
-	public void insert(ReponseUtilisateur element) throws DaoException {
+	public void insertVoid(ReponseUtilisateur element) throws DaoException {
 		Connection connection = null;
 	    PreparedStatement statement = null;
 	    ResultSet resultSet = null;
-	    ReponseUtilisateur object = null;
 	    try {
 	        connection = getConnection();
 	        statement = connection.prepareStatement(INSERT_QUERY);
@@ -114,7 +112,6 @@ public class ReponseUtilisateurDaoImpl implements ReponseUtilisateurDAO {
 		Connection connection = null;
 	    PreparedStatement statement = null;
 	    ResultSet resultSet = null;
-	    
 		try {
 	        connection = getConnection();
 	        statement = connection.prepareStatement(DELETE_QUERY);
@@ -135,6 +132,11 @@ public class ReponseUtilisateurDaoImpl implements ReponseUtilisateurDAO {
 	
 	@Override
 	public List<ReponseUtilisateur> selectAll() throws DaoException {
+		throw new DaoException("NOT IMPLEMENTED");
+	}
+
+	@Override
+	public ReponseUtilisateur insert(ReponseUtilisateur element) throws DaoException {
 		throw new DaoException("NOT IMPLEMENTED");
 	}
 

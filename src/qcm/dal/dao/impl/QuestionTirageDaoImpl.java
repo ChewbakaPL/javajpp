@@ -74,16 +74,10 @@ public class QuestionTirageDaoImpl implements QuestionTirageDAO {
     	QuestionTirage object = new QuestionTirage();
     	object.setIdQuestionTirage(resultSet.getInt("idQuestionTirage"));
     	object.setIdEpreuve(resultSet.getInt("idEpreuve"));
-    	
-    	
     	Integer idQuestion = resultSet.getInt("idQuestion");
-    	System.out.println("QuestionTirageDao idQuestion:"+idQuestion);
     	QuestionDaoImpl questionDao = new QuestionDaoImpl();
         Question question = questionDao.selectById(idQuestion);
         object.setQuestion(question);
-        
-        System.out.println("QuestionTirageDao question:"+question.getIdQuestion());
-    	
     	object.setEstMarquee(JdbcTools.IntToBoolean(resultSet.getInt("estMarquee")));
     	object.setNumOrdre(resultSet.getInt("numOrdre"));
     	return object;
