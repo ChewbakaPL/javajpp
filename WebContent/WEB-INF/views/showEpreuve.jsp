@@ -22,7 +22,7 @@
 		<div class="page-content container-fluid">
 			<div class="row">
 				<div class="list-group col-2">
-				  <a href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>
+				  <a id="btnLogout" href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>
 				</div>
 				<div class="col-md-8 col-md-offset-2">
 					<div class="mainBox">
