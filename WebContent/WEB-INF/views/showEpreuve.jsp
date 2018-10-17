@@ -19,7 +19,7 @@
     </jsp:include>
 
 	<div class="page-wrapper">
-		<div class="page-content">
+		<div class="page-content container-fluid">
 			<div class="row">
 				<div class="list-group col-2">
 				  <a href="${pageContext.request.contextPath }/disconnect" class="list-group-item list-group-item-action"> Deconnecter </a>

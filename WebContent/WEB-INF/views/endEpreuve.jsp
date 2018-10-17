@@ -19,7 +19,7 @@
     </jsp:include>
 
 	<div class="page-wrapper">
-		<div class="page-content">
+		<div class="page-content container-fluid">
 			<div class="row">
 				
 				<c:forEach items="${ resultats }" var="resultat">
