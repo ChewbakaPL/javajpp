@@ -15,14 +15,18 @@
 <body>
 	<%@include file="include/menu.jsp" %>
 	<jsp:include page="/WEB-INF/views/include/header.jsp">
-		<jsp:param name="title" value="Résultats ${ epreuve.test.libelle } : ${ epreuve.test.description }"/>
+		<jsp:param name="title" value="Resultats ${ epreuve.test.libelle } : ${ epreuve.test.description }"/>
     </jsp:include>
 
 	<div class="page-wrapper">
 		<div class="page-content">
 			<div class="row">
 				
+				<c:forEach items="${ resultats }" var="resultat">
 				
+					<br/> ${ resultat.key.getEnonce() }  ->   ${ resultat.value }
+				
+				</c:forEach>
 				
 			</div>
 		</div>

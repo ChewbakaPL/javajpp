@@ -6,6 +6,6 @@ import qcm.bo.ReponseUtilisateur;
 
 public interface ReponseUtilisateurDAO extends GenericDAO<ReponseUtilisateur, Integer> {
 
-	List<ReponseUtilisateur> selectByQuestionTirage() throws DaoException;
+	List<ReponseUtilisateur> selectByQuestionTirage(Integer idQuestionTirage) throws DaoException;
 
 }

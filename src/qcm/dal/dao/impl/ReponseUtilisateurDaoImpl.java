@@ -59,17 +59,17 @@ public class ReponseUtilisateurDaoImpl implements ReponseUtilisateurDAO {
     }
     
 	@Override
-	public List<ReponseUtilisateur> selectByQuestionTirage() throws DaoException {
+	public List<ReponseUtilisateur> selectByQuestionTirage(Integer idQuestionTirage) throws DaoException {
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<ReponseUtilisateur> list = new ArrayList<>();
         
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(SELECT_BY_QUESTION_TIRAGE_QUERY);
-
+            statement = connection.prepareStatement(SELECT_BY_QUESTION_TIRAGE_QUERY);
+	        statement.setInt(1, idQuestionTirage);
+	        resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(resultSetToObject(resultSet));
             }
