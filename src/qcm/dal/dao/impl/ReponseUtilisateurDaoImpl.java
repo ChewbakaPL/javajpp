@@ -83,7 +83,7 @@ public class ReponseUtilisateurDaoImpl implements ReponseUtilisateurDAO {
 	}
 
 	@Override
-	public ReponseUtilisateur insert(ReponseUtilisateur element) throws DaoException {
+	public void insert(ReponseUtilisateur element) throws DaoException {
 		Connection connection = null;
 	    PreparedStatement statement = null;
 	    ResultSet resultSet = null;
@@ -95,17 +95,13 @@ public class ReponseUtilisateurDaoImpl implements ReponseUtilisateurDAO {
 	        statement.setInt(1, element.getIdQuestionTirage());
 	        statement.setInt(2, element.getIdProposition());
 	        statement.setInt(3, element.getIdQuestion());
-	        resultSet = statement.executeQuery();
-	        while (resultSet.next()) {
-	        	object = resultSetToObject(resultSet);
-	        }
+	        statement.executeUpdate();
+	        
 	    } catch(SQLException e) {
 	        throw new DaoException(e.getMessage(), e);
 	    } finally {
 	        ResourceUtil.safeClose(resultSet, statement, connection);
 	    }
-	    
-        return object;
 	}
 
 	@Override
@@ -124,7 +120,7 @@ public class ReponseUtilisateurDaoImpl implements ReponseUtilisateurDAO {
 	        statement = connection.prepareStatement(DELETE_QUERY);
 	        
 	        statement.setInt(1, id);
-	        statement.executeQuery();
+	        statement.executeUpdate();
 	    } catch(SQLException e) {
 	        throw new DaoException(e.getMessage(), e);
 	    } finally {
