@@ -3,7 +3,6 @@ package qcm.ihm.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +12,6 @@ import fr.eni.tp.web.common.dal.exception.DaoException;
 import qcm.bo.Epreuve;
 import qcm.bo.Question;
 import qcm.bo.QuestionTirage;
-import qcm.bo.SectionTest;
-import qcm.bo.Test;
 import qcm.dal.dao.impl.EpreuveDaoImpl;
 
 
@@ -34,8 +31,7 @@ public class ShowEpreuveAction extends GenericServlet {
     		ArrayList<QuestionTirage> questionTirages = new ArrayList<QuestionTirage>();
     		List<Question> randomQuestions =  new ArrayList<Question>();
     		
-			EpreuveDaoImpl epreuveDAO = new EpreuveDaoImpl();
-			Epreuve epreuve = epreuveDAO.selectById(paramId);
+			Epreuve epreuve = epreuveDao.selectById(paramId);
 			
 			/*
 			//==== GENERATION questionTirages => a inserer en bdd =====
@@ -65,9 +61,6 @@ public class ShowEpreuveAction extends GenericServlet {
 			
 			//==== RECUPERATION questionTirages =====
 			questionTirages = questionTirageDao.selectByIdEpreuve(epreuve.getIdEpreuve());
-			//for (QuestionTirage qt : questionTirages) {
-			//	randomQuestions.add( qt.getQuestion() );
-			//}
 			//=======================================
 			
 			

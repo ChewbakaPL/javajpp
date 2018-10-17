@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.tp.web.common.dal.exception.DaoException;
+import qcm.bo.Epreuve;
+
 
 
 public class EndEpreuveAction extends GenericServlet {
@@ -20,7 +23,18 @@ public class EndEpreuveAction extends GenericServlet {
     	String parameter = request.getParameter("id");
     	Integer paramId = Integer.parseInt(parameter);
     	
+    	Epreuve epreuve = null;
+		try {
+			epreuve = epreuveDao.selectById(paramId);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
     	
+    	request.setAttribute("epreuve", epreuve);
+    	
+    	
+    	
+		request.getRequestDispatcher("/endEpreuveJSP").forward(request, response);
     }
     
     

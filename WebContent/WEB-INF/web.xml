@@ -95,4 +95,13 @@
     <url-pattern>/endEpreuve</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>endEpreuveJSP</servlet-name>
+    <jsp-file>/WEB-INF/views/endEpreuve.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>endEpreuveJSP</servlet-name>
+    <url-pattern>/endEpreuveJSP</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
