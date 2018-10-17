@@ -11,7 +11,6 @@ import java.util.List;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Epreuve;
-import qcm.bo.Question;
 import qcm.bo.QuestionTirage;
 import qcm.bo.Test;
 import qcm.bo.Utilisateur;
@@ -151,19 +150,16 @@ public class EpreuveDaoImpl implements EpreuveDAO {
 
 	@Override
 	public Epreuve insert(Epreuve element) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void update(Epreuve element) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void delete(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 }

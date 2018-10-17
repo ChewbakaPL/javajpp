@@ -14,12 +14,9 @@ import qcm.bo.Proposition;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.PropositionDAO;
 
-import javax.sql.DataSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class PropositionDaoImpl implements PropositionDAO {
 	
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private static final String SELECT_ALL_QUERY = "SELECT * FROM Proposition t";
 	private static final String SELECT_BY_QUESTION_QUERY = "SELECT * FROM Proposition t WHERE t.idQuestion=?";
        
@@ -33,10 +30,6 @@ public class PropositionDaoImpl implements PropositionDAO {
     
     public Connection getConnection() throws SQLException{
     	return JdbcTools.getConnection();
-    }
-    
-    public void setDataSource(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
     
     public static PropositionDaoImpl getInstance() {
@@ -110,26 +103,22 @@ public class PropositionDaoImpl implements PropositionDAO {
 
 	@Override
 	public Proposition insert(Proposition element) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void update(Proposition element) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void delete(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public Proposition selectById(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 }

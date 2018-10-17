@@ -14,6 +14,7 @@ import qcm.dal.dao.EpreuveDAO;
 import qcm.dal.dao.impl.EpreuveDaoImpl;
 import qcm.dal.dao.impl.QuestionDaoImpl;
 import qcm.dal.dao.impl.QuestionTirageDaoImpl;
+import qcm.dal.dao.impl.ReponseUtilisateurDaoImpl;
 import qcm.dal.dao.impl.TestDaoImpl;
 import qcm.dal.dao.impl.UtilisateurDaoImpl;
 
@@ -29,6 +30,7 @@ public class GenericServlet extends HttpServlet {
 	protected EpreuveDaoImpl epreuveDao = new EpreuveDaoImpl();
 	protected QuestionDaoImpl questionDao = new QuestionDaoImpl();
 	protected QuestionTirageDaoImpl questionTirageDao = new QuestionTirageDaoImpl();
+	protected ReponseUtilisateurDaoImpl reponseUtilisateurDao = new ReponseUtilisateurDaoImpl();
     
     /**
      * @see HttpServlet#HttpServlet()

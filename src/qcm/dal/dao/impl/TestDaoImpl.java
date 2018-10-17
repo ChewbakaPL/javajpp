@@ -10,8 +10,6 @@ import java.util.List;
 
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
-import qcm.bo.Epreuve;
-import qcm.bo.QuestionTirage;
 import qcm.bo.SectionTest;
 import qcm.bo.Test;
 import qcm.common.JdbcTools;
@@ -91,20 +89,17 @@ public class TestDaoImpl implements TestDAO {
 
 	@Override
 	public Test insert(Test element) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void update(Test element) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void delete(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override

@@ -14,13 +14,7 @@ import qcm.bo.Theme;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.SectionTestDAO;
 
-import javax.sql.DataSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
 public class SectionTestDaoImpl implements SectionTestDAO {
-	
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
     private static final String SELECT_BY_TEST = "SELECT * FROM SectionTest t WHERE t.idTest=?";
     
@@ -32,10 +26,6 @@ public class SectionTestDaoImpl implements SectionTestDAO {
     
     public Connection getConnection() throws SQLException{
     	return JdbcTools.getConnection();
-    }
-    
-    public void setDataSource(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
     
     public static SectionTestDaoImpl getInstance() {
@@ -92,32 +82,27 @@ public class SectionTestDaoImpl implements SectionTestDAO {
 
 	@Override
 	public SectionTest insert(SectionTest element) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void update(SectionTest element) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void delete(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public SectionTest selectById(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public List<SectionTest> selectAll() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
     
 }

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.util.ResourceUtil;
 import qcm.bo.Proposition;
 import qcm.bo.Question;
-import qcm.bo.Test;
 import qcm.bo.Theme;
 import qcm.common.JdbcTools;
 import qcm.dal.dao.QuestionDAO;
@@ -96,26 +94,22 @@ public class QuestionDaoImpl implements QuestionDAO {
 
 	@Override
 	public Question insert(Question element) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void update(Question element) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void delete(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public List<Question> selectAll() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 	
     @Override

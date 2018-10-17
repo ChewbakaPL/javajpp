@@ -20,6 +20,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class QuestionTirageDaoImpl implements QuestionTirageDAO {
 	
 	private static final String SELECT_BY_EPREUVE = "SELECT * FROM QuestionTirage t WHERE t.idEpreuve = ?";
+	private static final String SELECT_ONE_QUERY = "SELECT * FROM QuestionTirage t WHERE t.idQuestionTirage = ?";
 	
     private static QuestionTirageDaoImpl instance;
     
@@ -45,9 +46,6 @@ public class QuestionTirageDaoImpl implements QuestionTirageDAO {
     
     @Override
 	public ArrayList<QuestionTirage> selectByIdEpreuve(Integer idEpreuve) throws DaoException{
-		
-		System.out.println("buildQuestionTirages idEpreuve:"+idEpreuve);
-		
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -77,9 +75,14 @@ public class QuestionTirageDaoImpl implements QuestionTirageDAO {
     	object.setIdQuestionTirage(resultSet.getInt("idQuestionTirage"));
     	object.setIdEpreuve(resultSet.getInt("idEpreuve"));
     	
+    	
+    	Integer idQuestion = resultSet.getInt("idQuestion");
+    	System.out.println("QuestionTirageDao idQuestion:"+idQuestion);
     	QuestionDaoImpl questionDao = new QuestionDaoImpl();
-        Question question = questionDao.selectById(resultSet.getInt("idQuestion"));
+        Question question = questionDao.selectById(idQuestion);
         object.setQuestion(question);
+        
+        System.out.println("QuestionTirageDao question:"+question.getIdQuestion());
     	
     	object.setEstMarquee(JdbcTools.IntToBoolean(resultSet.getInt("estMarquee")));
     	object.setNumOrdre(resultSet.getInt("numOrdre"));
@@ -88,32 +91,51 @@ public class QuestionTirageDaoImpl implements QuestionTirageDAO {
 
 	@Override
 	public QuestionTirage insert(QuestionTirage element) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	@Override
 	public void update(QuestionTirage element) throws DaoException {
-		// TODO Auto-generated method stub
+		throw new DaoException("NOT IMPLEMENTED");
 		
 	}
 
 	@Override
 	public void delete(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
+		throw new DaoException("NOT IMPLEMENTED");
 		
 	}
+	
+    @Override
+    public QuestionTirage selectById(Integer id) throws DaoException {
+        
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        QuestionTirage object = null;
+        
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(SELECT_ONE_QUERY);
+            
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
 
-	@Override
-	public QuestionTirage selectById(Integer id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            while (resultSet.next()) {
+            	object = resultSetToObject(resultSet);
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return object;
+    }
 
 	@Override
 	public List<QuestionTirage> selectAll() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new DaoException("NOT IMPLEMENTED");
 	}
 
 	

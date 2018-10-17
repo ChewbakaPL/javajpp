@@ -129,6 +129,16 @@ CREATE TABLE [dbo].[SectionTest](
 GO
 
 
+/****** Object:  Table [dbo].[ReponseUtilisateur] ******/
+
+CREATE TABLE [dbo].[ReponseUtilisateur](
+	[idQuestionTirage] [int] NOT NULL FOREIGN KEY REFERENCES QuestionTirage(idQuestionTirage),
+	[idProposition] [int] NOT NULL FOREIGN KEY REFERENCES Proposition(idProposition),
+	[idQuestion] [int] NOT NULL FOREIGN KEY REFERENCES Question(idQuestion),
+) ON [PRIMARY]
+
+GO
+
 
 /************************************* DATA *********************************************/
 USE [javaQCM]
