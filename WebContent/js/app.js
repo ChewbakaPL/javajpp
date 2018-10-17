@@ -38,8 +38,14 @@ $(document).ready(function (){
 		saveForm(idQuestionTirage);
 	});
 	
-	$('#saveEpreuve').click(function (){
+	$('#saveEpreuve').click(function (e){
+		e.preventDefault();
 		saveForm(nbSpans);
+		
+		let currentUrl = window.location.href;  //http://localhost:8080/javajpp/showEpreuve?id=4
+		currentUrl = currentUrl.replace('showEpreuve', 'endEpreuve');
+		
+		window.location.href = currentUrl;
 	});
 	
 	function activeQuestionSpan(idQuestion){

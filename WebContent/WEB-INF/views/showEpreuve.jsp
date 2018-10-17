@@ -58,7 +58,7 @@
 								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary next">Suivant <i class="fa fa-arrow-right"></i> </button>
 							</form>
 						</c:forEach>
-						<a id="saveEpreuve" class="btn btn-secondary" href="javascript:;"> Terminer</a>
+						<a id="saveEpreuve" class="btn btn-secondary" href="#"> Terminer</a>
 					</div>
 					</div>
 				</div>
