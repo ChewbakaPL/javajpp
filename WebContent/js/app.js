@@ -3,12 +3,10 @@ $(document).ready(function (){
 	$('.form_num_1').css('display', 'contents');
 	$("span:contains('1')").addClass('active');
 	let nbSpans = $(".box_question span").length;
-	
 	$('.previous').click(function (){
 		let previousIdQuestionTirage = Number($(".box_question span.active:first").text());
 		saveForm(previousIdQuestionTirage);
 		$('#saveEpreuve').hide();
-		
 		let newIdQuestionTirage = previousIdQuestionTirage - 1;
 		toggleForm(newIdQuestionTirage);
 		activeQuestionSpan(newIdQuestionTirage);
@@ -19,12 +17,10 @@ $(document).ready(function (){
 			$('.previous').show();
 		}
 	});
-	
 	$('.next').click(function (){
 		let previousIdQuestionTirage = Number($(".box_question span.active:first").text());
 		saveForm(previousIdQuestionTirage);
 		$('.previous').css('display', 'inline-block');
-		
 		let newIdQuestionTirage = previousIdQuestionTirage + 1;
 		toggleForm(newIdQuestionTirage);
 		activeQuestionSpan(newIdQuestionTirage);
@@ -54,19 +50,14 @@ $(document).ready(function (){
 	}
 	
 	function saveForm(idQuestionTirage) {
-		console.log("exec saveForm("+idQuestionTirage+")");
-		
 		let formData = $('.form_num_'+ idQuestionTirage).serializeArray();
 		$.ajax({
 		  type: "POST",
 		  url: 'processEpreuve',
 		  data: formData,
 		  success: function(){
-			  let noAnswer = (formData.length <= 2);
-			  console.log("saveForm AJAX success noAnswer:" + noAnswer);
-			  console.log(formData);
-			  
-			  if (noAnswer){
+			  // si il y a pas de reponse de coché
+			  if (formData.length <= 2){
 				  unColorQuestionBox(idQuestionTirage);
 			  } else {
 				  colorQuestionBox(idQuestionTirage);
@@ -76,8 +67,6 @@ $(document).ready(function (){
 	}
 	
 	function toggleForm(idForm){
-		console.log("exec toggleForm("+idForm+")");
-		
 		$(".form_question").each(function(){
 			$(this).css('display', 'none');
 		});
