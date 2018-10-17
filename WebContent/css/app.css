@@ -45,8 +45,10 @@ img {
 }
 
 .box_question span {
+	font-weight: 900;
 	border: 1px solid black;
-	padding: 5px;
+	padding: 6px 11px 6px 11px;
+    border-radius: 50%;
     background-color: lightgray;
 }
 
@@ -56,8 +58,13 @@ img {
 }
 
 .box_question span.anwsered{
-	background-color: green;
+	background-color: #4dd24d;
 }
+
+.box_question span.anwsered.active{
+	background-color: #52ff65;
+}
+
 
 .form_question{
 	display: none;
@@ -69,4 +76,8 @@ img {
 
 .previous, #saveEpreuve{
 	display: none;
+}
+
+#saveEpreuve{
+	float: right;
 }

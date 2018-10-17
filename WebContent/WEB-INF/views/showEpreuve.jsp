@@ -54,8 +54,8 @@
 										</c:forEach>
 									</ul>
 								</div>
-								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary previous">Précédent</button>
-								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary next">Suivant</button>
+								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary previous"><i class="fa fa-arrow-left"></i> Précédent</button>
+								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary next">Suivant <i class="fa fa-arrow-right"></i> </button>
 							</form>
 						</c:forEach>
 						<a id="saveEpreuve" class="btn btn-secondary" href="javascript:;"> Terminer</a>
