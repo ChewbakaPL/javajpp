@@ -33,14 +33,16 @@
 								</c:forEach>
 							</div>
 						</div>
-						<div class="row">
+						<div class="container">
 						<c:forEach items="${ questionTirages }" var="questionTirage">
-							<form id="form_question_${ questionTirage.getIdQuestionTirage() }" action="processEpreuve" method="POST">
+							<form class="form_question form_num_${ questionTirage.getNumOrdre() }" id="form_question_${ questionTirage.getIdQuestionTirage() }" action="processEpreuve" method="POST">
 								<input type="hidden" name="idQuestionTirage" value="${ questionTirage.getIdQuestionTirage() }"/>
 								<input type="hidden" name="idQuestion" value="${ questionTirage.getQuestion().getIdQuestion() }"/>
-								<div class="row form_question form_num_${ questionTirage.getNumOrdre() }" >									
-									<h2>Question n° ${ questionTirage.getNumOrdre() } - ${ questionTirage.getQuestion().getTheme().getLibelle() }</h2>
+								<h2>Question n° ${ questionTirage.getNumOrdre() } - ${ questionTirage.getQuestion().getTheme().getLibelle() }</h2>
+								<div class="row">									
 									<p>${ questionTirage.getQuestion().getEnonce() }</p>
+								</div>
+								<div class="row">	
 									<ul>
 										<c:forEach items="${ questionTirage.getQuestion().getPropositions() }" var="proposition">
 											<li>
@@ -52,9 +54,11 @@
 										</c:forEach>
 									</ul>
 								</div>
-								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary sendAjax">Envoyer</button>
+								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary previous">Précédent</button>
+								<button type="button" data-question_tirage="${ questionTirage.getIdQuestionTirage() }" class="btn btn-primary next">Suivant</button>
 							</form>
 						</c:forEach>
+						<a id="saveEpreuve" class="btn btn-secondary" href="javascript:;"> Terminer</a>
 					</div>
 					</div>
 				</div>

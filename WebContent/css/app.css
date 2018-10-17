@@ -50,10 +50,6 @@ img {
     background-color: lightgray;
 }
 
-.box_question span:hover{
-	background-color: #e4e4e4;
-}
-
 .box_question span.active { 
 	background-color: #f5f5f5;
     border: 2px solid black;
@@ -69,4 +65,8 @@ img {
 
 .form_question li{
 	list-style-type: none;
+}
+
+.previous, #saveEpreuve{
+	display: none;
 }
