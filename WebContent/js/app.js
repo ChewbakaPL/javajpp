@@ -5,34 +5,36 @@ $(document).ready(function (){
 	let nbSpans = $(".box_question span").length;
 	
 	$('.previous').click(function (){
+		let previousIdQuestionTirage = Number($(".box_question span.active:first").text());
+		saveForm(previousIdQuestionTirage);
 		$('#saveEpreuve').hide();
-		let idQuestion = $(this).data('question_tirage');
-		idQuestion = idQuestion - 2;
-		toggleForm(idQuestion);
-		activeQuestionSpan(idQuestion);
-		if (idQuestion == "1"){
+		
+		let newIdQuestionTirage = previousIdQuestionTirage - 1;
+		toggleForm(newIdQuestionTirage);
+		activeQuestionSpan(newIdQuestionTirage);
+		if (newIdQuestionTirage == "1"){
 			$('.previous').hide();
 			$('.next').show();
 		} else {
 			$('.previous').show();
 		}
-		saveForm(idQuestion);
 	});
 	
 	$('.next').click(function (){
+		let previousIdQuestionTirage = Number($(".box_question span.active:first").text());
+		saveForm(previousIdQuestionTirage);
 		$('.previous').css('display', 'inline-block');
-		let idQuestion = $(this).data('question_tirage');
-		idQuestion = idQuestion + 1;
-		toggleForm(idQuestion);
-		activeQuestionSpan(idQuestion);
-		if (idQuestion == nbSpans){
+		
+		let newIdQuestionTirage = previousIdQuestionTirage + 1;
+		toggleForm(newIdQuestionTirage);
+		activeQuestionSpan(newIdQuestionTirage);
+		if (newIdQuestionTirage == nbSpans){
 			$('.next').hide();
 			$('#saveEpreuve').show();
 		} else {
 			$('.next').show();
 			$('#saveEpreuve').hide();
 		}
-		saveForm(idQuestion-1);
 	});
 	
 	$('.sendAjax').click(function (){
@@ -52,22 +54,30 @@ $(document).ready(function (){
 	}
 	
 	function saveForm(idQuestionTirage) {
+		console.log("exec saveForm("+idQuestionTirage+")");
+		
 		let formData = $('.form_num_'+ idQuestionTirage).serializeArray();
 		$.ajax({
 		  type: "POST",
 		  url: 'processEpreuve',
 		  data: formData,
 		  success: function(){
-			  if (formData.length > 2){
-				  colorQuestionBox(idQuestionTirage);
-			  } else {
+			  let noAnswer = (formData.length <= 2);
+			  console.log("saveForm AJAX success noAnswer:" + noAnswer);
+			  console.log(formData);
+			  
+			  if (noAnswer){
 				  unColorQuestionBox(idQuestionTirage);
+			  } else {
+				  colorQuestionBox(idQuestionTirage);
 			  }
 		  }
 		});
 	}
 	
 	function toggleForm(idForm){
+		console.log("exec toggleForm("+idForm+")");
+		
 		$(".form_question").each(function(){
 			$(this).css('display', 'none');
 		});
