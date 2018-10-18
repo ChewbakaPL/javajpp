@@ -66,7 +66,7 @@ CREATE TABLE [dbo].[Epreuve](
 	[idEpreuve] [int] IDENTITY(1,1) NOT NULL,
 	[dateDebutValidite] [bigint] NULL,
 	[dateFinValidite] [bigint] NULL,
-	[dateDebutTest] [datetime] NULL
+	[dateDebutTest] [datetime] NULL,
 	[tempsEcoule] [int] NULL,
 	[etat] [int] NULL,
 	[noteObtenu] [decimal](18, 0) NULL,
