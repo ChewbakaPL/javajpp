@@ -103,7 +103,6 @@ public class utilisateurTest {
 		result = utilisateurDao.checkLogin(emailUserToto, passwordUserToto);
 		assertNotNull(result);
 		assertNotEquals("admin", result.getType());
-		
 	}
 
 }
