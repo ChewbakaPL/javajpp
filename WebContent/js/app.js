@@ -6,7 +6,7 @@ $(document).ready(function (){
 	$('.previous').click(function (){
 		let previousIdQuestionTirage = Number($(".box_question span.active:first").text());
 		saveForm(previousIdQuestionTirage);
-		$('#saveEpreuve').hide();
+		$('.next').css('display', 'inline-block');
 		let newIdQuestionTirage = previousIdQuestionTirage - 1;
 		toggleForm(newIdQuestionTirage);
 		activeQuestionSpan(newIdQuestionTirage);
@@ -26,10 +26,8 @@ $(document).ready(function (){
 		activeQuestionSpan(newIdQuestionTirage);
 		if (newIdQuestionTirage == nbSpans){
 			$('.next').hide();
-			$('#saveEpreuve').show();
 		} else {
 			$('.next').show();
-			$('#saveEpreuve').hide();
 		}
 	});
 	
@@ -42,7 +40,7 @@ $(document).ready(function (){
 		e.preventDefault();
 		saveForm(nbSpans);
 		
-		let currentUrl = window.location.href;  //http://localhost:8080/javajpp/showEpreuve?id=4
+		let currentUrl = window.location.href;
 		currentUrl = currentUrl.replace('showEpreuve', 'endEpreuve');
 		
 		window.location.href = currentUrl;

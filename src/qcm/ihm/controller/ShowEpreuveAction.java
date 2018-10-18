@@ -38,46 +38,8 @@ public class ShowEpreuveAction extends GenericServlet {
     		
 			Epreuve epreuve = epreuveDao.selectById(paramId);
 			epreuve.setDateDebutTest(this.getCurrentDate());
-			
-			//TO FIX
-			//epreuveDao.update(epreuve);
-			//epreuve = epreuveDao.selectById(epreuve.getIdEpreuve());
-			
-			
-			System.out.println("Date debut test enregistré:");
-			System.out.println(epreuve.getDateDebutTest());
-			
-			
-			/*
-			//==== GENERATION questionTirages => a inserer en bdd =====
-			Test test = epreuve.getTest();
-			ArrayList<SectionTest> sectionTests = test.getSectionTests();
 
-			for (SectionTest st : sectionTests) {
-				Integer idTheme = st.getTheme().getIdTheme();
-				Integer nbQuestionATirer = st.getNbQuestionATirer();
-				
-				List<Question> randomQuestions = questionDao.selectByTheme(idTheme, nbQuestionATirer);
-				Integer numOrdre = 1;
-				for (Question question : randomQuestions) {
-					QuestionTirage qt = new QuestionTirage();
-					qt.setIdEpreuve(epreuve.getIdEpreuve());
-					qt.setNumOrdre(numOrdre);
-					qt.setQuestion(question);
-					qt.setEstMarquee(false);
-					questionTirages.add(qt);
-					numOrdre ++;
-				}
-			}
-			//=====================================
-			 */
-			
-			//ou
-			
-			//==== RECUPERATION questionTirages =====
 			questionTirages = questionTirageDao.selectByIdEpreuve(epreuve.getIdEpreuve());
-			//=======================================
-			
 			
 			request.setAttribute("epreuve", epreuve);
 			request.setAttribute("questionTirages", questionTirages);

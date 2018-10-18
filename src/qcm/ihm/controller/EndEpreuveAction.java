@@ -55,8 +55,6 @@ public class EndEpreuveAction extends GenericServlet {
 				e.printStackTrace();
 			}
 			
-			System.out.println("question "+question.getEnonce());
-			
 			Boolean goodAnswer = true;
 			for(Proposition proposition : propositions){
 				Integer idProposition = proposition.getIdProposition();
@@ -66,14 +64,11 @@ public class EndEpreuveAction extends GenericServlet {
 						userCheckedIt = true;
 					}
 				}
-				
-				System.out.println("idProposition:"+idProposition+" userCheckedIt:"+ userCheckedIt +" (estBonne:"+ proposition.getEstBonne() +")");
+		
 				if(userCheckedIt != proposition.getEstBonne()){
 					goodAnswer = false;
 				}
 			}
-			
-			System.out.println(" ");
 			
 			resultats.put(question, goodAnswer);
 		}
@@ -89,19 +84,11 @@ public class EndEpreuveAction extends GenericServlet {
 	        totalEpreuve += ((Question)pair.getKey()).getPoints();
 	    }
 	    
-	    
-	    //enregistrement des resultat de l'epreuve :
-	    //TODO
-	    
-	    
-	    
     	request.setAttribute("epreuve", epreuve);
     	request.setAttribute("resultats", resultats);
     	request.setAttribute("total", total);
     	request.setAttribute("totalEpreuve", totalEpreuve);
     	request.setAttribute("minutesRestantes", minutesRestantes);
-    	
-    	
 		request.getRequestDispatcher("/endEpreuveJSP").forward(request, response);
     }
     
