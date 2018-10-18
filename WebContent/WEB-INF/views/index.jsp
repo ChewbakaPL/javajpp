@@ -19,7 +19,7 @@
 		<div class="page-content container-fluid">
 		    <div class="row">
 		    	<div class="col-12 text-center">
-		        	<h1 class="mt-1">Validateur de compétence</h1>
+		        	<h1 class="mb-4">Validateur de compétence</h1>
 		        </div>
 		        <div class="col-md-4 offset-md-4">
 		        	<form action="processLogin" method="POST">
