@@ -22,8 +22,11 @@
 		<div class="page-content container-fluid">
 			<div class="row">
 				
+				<br/> Points obtenu: ${total} (${minutesRestantes} minutes restantes)
+				
 				<c:forEach items="${ resultats }" var="resultat">
 				
+					
 					<br/> ${ resultat.key.getEnonce() }  ->   ${ resultat.value }
 				
 				</c:forEach>

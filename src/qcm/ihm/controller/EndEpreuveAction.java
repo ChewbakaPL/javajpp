@@ -75,10 +75,11 @@ public class EndEpreuveAction extends GenericServlet {
 	        if(((Boolean)pair.getValue())){
 	        	total += ((Question)pair.getKey()).getPoints();
 	        }
-	        it.remove();
 	    }
 		
 	    System.out.println("Total: "+ total);
+	    System.out.println("Resultats: "+ resultats);
+	    
 	    
 	    
 	    Integer minutesRestantes = epreuve.getTest().getDuree() - epreuve.getTempsEcoule();
