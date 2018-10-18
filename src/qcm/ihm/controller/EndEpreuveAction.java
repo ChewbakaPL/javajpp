@@ -68,21 +68,25 @@ public class EndEpreuveAction extends GenericServlet {
 			}
 		}
 		
-		Double totalPoints = 0.0;
+		Double total = 0.0;
 		Iterator it = resultats.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry pair = (Map.Entry)it.next();
 	        if(((Boolean)pair.getValue())){
-	        	totalPoints += ((Question)pair.getKey()).getPoints();
+	        	total += ((Question)pair.getKey()).getPoints();
 	        }
 	        it.remove();
 	    }
 		
-	    System.out.println("Total: "+ totalPoints);
+	    System.out.println("Total: "+ total);
 	    
-		
+	    
+	    Integer minutesRestantes = epreuve.getTest().getDuree() - epreuve.getTempsEcoule();
+	    
     	request.setAttribute("epreuve", epreuve);
     	request.setAttribute("resultats", resultats);
+    	request.setAttribute("total", total);
+    	request.setAttribute("minutesRestantes", minutesRestantes);
     	
     	
 		request.getRequestDispatcher("/endEpreuveJSP").forward(request, response);
