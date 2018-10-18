@@ -1,29 +1,7 @@
 
 USE [javaQCM]
 GO
-/****** Object:  Table [dbo].[Epreuve]    Script Date: 18/10/2018 10:10:58 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Epreuve](
-	[idEpreuve] [int] IDENTITY(1,1) NOT NULL,
-	[dateDebutValidite] [bigint] NULL,
-	[dateFinValidite] [bigint] NULL,
-	[dateDebutTest] [timestamp] NULL,
-	[tempsEcoule] [int] NULL,
-	[etat] [int] NULL,
-	[noteObtenu] [decimal](18, 0) NULL,
-	[niveauObtenu] [int] NULL,
-	[idTest] [int] NOT NULL,
-	[idUtilisateur] [int] NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[idEpreuve] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 
-GO
 /****** Object:  Table [dbo].[Proposition]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
@@ -78,6 +56,31 @@ CREATE TABLE [dbo].[QuestionProposition](
 ) ON [PRIMARY]
 
 GO
+
+/****** Object:  Table [dbo].[Epreuve]    Script Date: 18/10/2018 10:10:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Epreuve](
+	[idEpreuve] [int] IDENTITY(1,1) NOT NULL,
+	[dateDebutValidite] [bigint] NULL,
+	[dateFinValidite] [bigint] NULL,
+	[dateDebutTest] [datetime] NULL
+	[tempsEcoule] [int] NULL,
+	[etat] [int] NULL,
+	[noteObtenu] [decimal](18, 0) NULL,
+	[niveauObtenu] [int] NULL,
+	[idTest] [int] NOT NULL,
+	[idUtilisateur] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idEpreuve] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
 /****** Object:  Table [dbo].[QuestionTirage]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO

@@ -1,6 +1,7 @@
 package qcm.dal.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +30,9 @@ public class EpreuveDaoImpl implements EpreuveDAO {
     private static final String SELECT_ONE_QUERY = "SELECT * FROM Epreuve t WHERE t.idEpreuve = ?";
     private static final String SELECT_BY_USER_QUERY = "SELECT * FROM Epreuve t WHERE t.idUtilisateur = ?";
 
-    private static final String UPDATE_QUERY = "UPDATE Epreuve t SET t.dateDebutValidite=:dateDebutValidite, t.dateFinValidite=:dateFinValidite, dateDebutTest=:dateDebutTest, tempsEcoule=:tempsEcoule, etat=:etat, noteObtenu=:noteObtenu, niveauObtenu=:niveauObtenu, idTest=:idTest, idUtilisateur=:idUtilisateur WHERE t.idEpreuve=:idEpreuve";
+    //private static final String UPDATE_QUERY = "UPDATE Epreuve SET dateDebutValidite=:dateDebutValidite, dateFinValidite=:dateFinValidite, dateDebutTest=:dateDebutTest, tempsEcoule=:tempsEcoule, etat=:etat, noteObtenu=:noteObtenu, niveauObtenu=:niveauObtenu, idTest=:idTest, idUtilisateur=:idUtilisateur WHERE idEpreuve=:idEpreuve";
+    private static final String UPDATE_QUERY = "UPDATE Epreuve SET dateDebutValidite='?', dateFinValidite='?', dateDebutTest='?', tempsEcoule='?', etat='?', noteObtenu='?', niveauObtenu='?', idTest='?', idUtilisateur='?' WHERE t.idEpreuve='?'";
+    
     
     private static EpreuveDaoImpl instance;
     
@@ -42,7 +45,7 @@ public class EpreuveDaoImpl implements EpreuveDAO {
     }
     
     public void setDataSource(DataSource dataSource) {
-        new NamedParameterJdbcTemplate(dataSource);
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
     
     public static EpreuveDaoImpl getInstance() {
@@ -138,7 +141,10 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         object.setIdEpreuve(resultSet.getInt("idEpreuve"));
         object.setDateDebutValidite(resultSet.getInt("dateDebutValidite"));
         object.setDateFinValidite(resultSet.getInt("dateFinValidite"));
-        object.setDateDebutTest(resultSet.getTimestamp("dateDebutTest"));
+        
+        java.util.Date javaUtilDate = resultSet.getDate("dateDebutTest");
+        object.setDateDebutTest(javaUtilDate);
+        
         object.setTempsEcoule(resultSet.getInt("tempsEcoule"));
         object.setEtat(resultSet.getInt("etat"));
         object.setNoteObtenu(resultSet.getDouble("noteObtenu"));
@@ -153,20 +159,62 @@ public class EpreuveDaoImpl implements EpreuveDAO {
     }
     
     
+    @Override
+    public void update(Epreuve object) throws DaoException {
+          
+    Connection connection = null;
+    PreparedStatement statement = null;
+    ResultSet resultSet = null;
+    try {
+    	System.out.println("EpreuveDao update idEpreuve: "+object.getIdEpreuve());
+    	
+        connection = getConnection();
+        
+        statement = connection.prepareStatement(UPDATE_QUERY);
+        
+        Date javaSqlDate = new java.sql.Date(object.getDateDebutTest().getTime());
+        
+        
+        //DaoException: L'index 1 est hors limites :(
+        statement.setInt(1, object.getDateDebutValidite());
+        statement.setInt(2, object.getDateFinValidite());
+        statement.setDate(3, javaSqlDate);
+        statement.setInt(4, object.getTempsEcoule());
+        statement.setLong(5, object.getEtat());
+        statement.setDouble(6, object.getNoteObtenu());
+        statement.setInt(7, object.getNiveauObtenu());
+        statement.setInt(8, object.getTest().getIdTest());
+        statement.setInt(9, object.getUtilisateur().getIdUtilisateur());
+        statement.setInt(10, object.getIdEpreuve());
+        
+        statement.executeUpdate();
+
+    } catch(SQLException e) {
+        throw new DaoException(e.getMessage(), e);
+    } finally {
+        ResourceUtil.safeClose(resultSet, statement, connection);
+    }
+    
+  }
+    
+    /*
 	@Override
 	public void update(Epreuve object) throws DaoException {
         // Adding params using MapSqlParameterSource class
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
         
+    	Date javaSqlDate = new java.sql.Date(object.getDateDebutTest().getTime());
+    	
         parameters.addValue("dateDebutValidite", object.getDateDebutValidite())
         .addValue("dateFinValidite", object.getDateFinValidite())
-        .addValue("dateDebutTest", object.getDateDebutTest())
+        .addValue("dateDebutTest", javaSqlDate)
         .addValue("tempsEcoule", object.getTempsEcoule())
         .addValue("etat", object.getEtat())
         .addValue("noteObtenu", object.getNoteObtenu())
         .addValue("niveauObtenu", object.getNoteObtenu())
         .addValue("idTest", object.getTest().getIdTest())
         .addValue("idUtilisateur", object.getUtilisateur().getIdUtilisateur());
+        //.addValue("idEpreuve", object.getIdEpreuve());  //NOK?
         
         
         int status = namedParameterJdbcTemplate.update(UPDATE_QUERY, parameters); 
@@ -175,7 +223,7 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         }else{
             System.out.println("No User found with ID " + object.getIdEpreuve());
         }
-	}
+	}*/
 	
 	
 

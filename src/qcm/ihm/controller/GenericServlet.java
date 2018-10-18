@@ -1,6 +1,7 @@
 package qcm.ihm.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -76,6 +77,11 @@ public class GenericServlet extends HttpServlet {
 	protected Timestamp getCurrentTimestamp(){
 	      long t = Calendar.getInstance().getTime().getTime();
 	      return new java.sql.Timestamp(t);
+	}
+	
+	protected Date getCurrentDate(){
+	      long t = Calendar.getInstance().getTime().getTime();
+	      return new java.sql.Date(t);
 	}
 
 }

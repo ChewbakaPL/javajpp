@@ -37,9 +37,11 @@ public class ShowEpreuveAction extends GenericServlet {
     		List<Question> randomQuestions =  new ArrayList<Question>();
     		
 			Epreuve epreuve = epreuveDao.selectById(paramId);
-			epreuve.setDateDebutTest(this.getCurrentTimestamp());
-			epreuveDao.update(epreuve);
-			epreuve = epreuveDao.selectById(epreuve.getIdEpreuve());
+			epreuve.setDateDebutTest(this.getCurrentDate());
+			
+			//TO FIX
+			//epreuveDao.update(epreuve);
+			//epreuve = epreuveDao.selectById(epreuve.getIdEpreuve());
 			
 			
 			System.out.println("Date debut test enregistré:");

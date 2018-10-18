@@ -1,14 +1,14 @@
 package qcm.bo;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Epreuve {
 
 	private Integer idEpreuve;
 	private Integer dateDebutValidite;
 	private Integer dateFinValidite;
-	private Timestamp dateDebutTest;
+	private Date dateDebutTest;
 	private Integer tempsEcoule;
 	private Integer etat;
 	private Double noteObtenu;
@@ -21,10 +21,10 @@ public class Epreuve {
 		super();
 	}
 	
-	public Timestamp getDateDebutTest() {
+	public Date getDateDebutTest() {
 		return dateDebutTest;
 	}
-	public void setDateDebutTest(Timestamp dateDebutTest) {
+	public void setDateDebutTest(Date dateDebutTest) {
 		this.dateDebutTest = dateDebutTest;
 	}
 	public Utilisateur getUtilisateur() {
