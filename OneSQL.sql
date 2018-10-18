@@ -1,63 +1,6 @@
-
 USE [javaQCM]
 GO
-
-/****** Object:  Table [dbo].[Proposition]    Script Date: 18/10/2018 10:10:59 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
-GO
-CREATE TABLE [dbo].[Proposition](
-	[idProposition] [int] IDENTITY(1,1) NOT NULL,
-	[enonce] [varchar](255) NULL,
-	[estBonne] [tinyint] NOT NULL,
-	[idQuestion] [int] NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[idProposition] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-SET ANSI_PADDING OFF
-GO
-/****** Object:  Table [dbo].[Question]    Script Date: 18/10/2018 10:10:59 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
-GO
-CREATE TABLE [dbo].[Question](
-	[idQuestion] [int] IDENTITY(1,1) NOT NULL,
-	[enonce] [varchar](255) NULL,
-	[media] [varchar](255) NULL,
-	[points] [decimal](18, 0) NULL,
-	[idTheme] [int] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[idQuestion] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-SET ANSI_PADDING OFF
-GO
-/****** Object:  Table [dbo].[QuestionProposition]    Script Date: 18/10/2018 10:10:59 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[QuestionProposition](
-	[idQuestion] [int] NOT NULL,
-	[idProposition] [int] NOT NULL
-) ON [PRIMARY]
-
-GO
-
-/****** Object:  Table [dbo].[Epreuve]    Script Date: 18/10/2018 10:10:58 ******/
+/****** Object:  Table [dbo].[Epreuve]    Script Date: 18/10/2018 16:42:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -80,8 +23,61 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
+/****** Object:  Table [dbo].[Proposition]    Script Date: 18/10/2018 16:42:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Proposition](
+	[idProposition] [int] IDENTITY(1,1) NOT NULL,
+	[enonce] [varchar](255) NULL,
+	[estBonne] [tinyint] NOT NULL,
+	[idQuestion] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idProposition] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 
-/****** Object:  Table [dbo].[QuestionTirage]    Script Date: 18/10/2018 10:10:59 ******/
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Question]    Script Date: 18/10/2018 16:42:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Question](
+	[idQuestion] [int] IDENTITY(1,1) NOT NULL,
+	[enonce] [varchar](255) NULL,
+	[media] [varchar](255) NULL,
+	[points] [decimal](18, 0) NULL,
+	[idTheme] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idQuestion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[QuestionProposition]    Script Date: 18/10/2018 16:42:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[QuestionProposition](
+	[idQuestion] [int] NOT NULL,
+	[idProposition] [int] NOT NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[QuestionTirage]    Script Date: 18/10/2018 16:42:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -99,7 +95,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ReponseUtilisateur]    Script Date: 18/10/2018 10:10:59 ******/
+/****** Object:  Table [dbo].[ReponseUtilisateur]    Script Date: 18/10/2018 16:42:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -111,7 +107,7 @@ CREATE TABLE [dbo].[ReponseUtilisateur](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[SectionTest]    Script Date: 18/10/2018 10:10:59 ******/
+/****** Object:  Table [dbo].[SectionTest]    Script Date: 18/10/2018 16:42:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,7 +124,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Test]    Script Date: 18/10/2018 10:10:59 ******/
+/****** Object:  Table [dbo].[Test]    Script Date: 18/10/2018 16:42:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -151,7 +147,7 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[Theme]    Script Date: 18/10/2018 10:10:59 ******/
+/****** Object:  Table [dbo].[Theme]    Script Date: 18/10/2018 16:42:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +166,7 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[Utilisateur]    Script Date: 18/10/2018 10:10:59 ******/
+/****** Object:  Table [dbo].[Utilisateur]    Script Date: 18/10/2018 16:42:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -196,33 +192,53 @@ GO
 SET IDENTITY_INSERT [dbo].[Epreuve] ON 
 
 GO
-INSERT [dbo].[Epreuve] ([idEpreuve], [dateDebutValidite], [dateFinValidite], [tempsEcoule], [etat], [noteObtenu], [niveauObtenu], [idTest], [idUtilisateur]) VALUES (4, 999999, 999999, 50, 1, CAST(11 AS Decimal(18, 0)), 11, 1, 2)
+INSERT [dbo].[Epreuve] ([idEpreuve], [dateDebutValidite], [dateFinValidite], [dateDebutTest], [tempsEcoule], [etat], [noteObtenu], [niveauObtenu], [idTest], [idUtilisateur]) VALUES (4, 999999, 999999, NULL, 50, 1, CAST(11 AS Decimal(18, 0)), 11, 1, 2)
 GO
-INSERT [dbo].[Epreuve] ([idEpreuve], [dateDebutValidite], [dateFinValidite], [tempsEcoule], [etat], [noteObtenu], [niveauObtenu], [idTest], [idUtilisateur]) VALUES (6, 999999, 999999, 60, 1, CAST(22 AS Decimal(18, 0)), 22, 2, 2)
+INSERT [dbo].[Epreuve] ([idEpreuve], [dateDebutValidite], [dateFinValidite], [dateDebutTest], [tempsEcoule], [etat], [noteObtenu], [niveauObtenu], [idTest], [idUtilisateur]) VALUES (6, 999999, 999999, NULL, 60, 1, CAST(22 AS Decimal(18, 0)), 22, 2, 2)
 GO
 SET IDENTITY_INSERT [dbo].[Epreuve] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Proposition] ON 
 
 GO
-INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (1, N'reponse D', 1, 1)
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (1, N'C''est le language de programmation', 1, 1)
 GO
-INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (2, N'je sais pas', 0, 1)
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (2, N'J''en sais rien', 0, 1)
 GO
-INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (3, N'reponse C', 1, 1)
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (3, N'C''est génial', 1, 1)
 GO
-INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (5, N'1', 1, 2)
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (5, N'Je préfère JAVA', 0, 1)
 GO
-INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (7, N'2', 0, 2)
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (7, N'NULLOS', 0, 1)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (8, N'echo', 1, 2)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (9, N'Je sais pas', 0, 2)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (10, N'echo echo;', 0, 2)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (11, N'Je sais pas trop', 0, 3)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (12, N'Quel question...', 1, 3)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (13, N'Je sais pas qu''est ce que je fais ici!', 0, 3)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (14, N'JAVA bien!', 1, 4)
+GO
+INSERT [dbo].[Proposition] ([idProposition], [enonce], [estBonne], [idQuestion]) VALUES (15, N'Non pas du tout...', 0, 4)
 GO
 SET IDENTITY_INSERT [dbo].[Proposition] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Question] ON 
 
 GO
-INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (1, N'premiere question', NULL, CAST(10 AS Decimal(18, 0)), 1)
+INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (1, N'Quest ce que c''est PHP', NULL, CAST(30 AS Decimal(18, 0)), 1)
 GO
-INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (2, N'deuxieme question', NULL, CAST(20 AS Decimal(18, 0)), 1)
+INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (2, N'Quest ce que va faire "echo ''echo'';"', NULL, CAST(50 AS Decimal(18, 0)), 1)
+GO
+INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (3, N'PHP est mieux que JAVA?', NULL, CAST(100 AS Decimal(18, 0)), 1)
+GO
+INSERT [dbo].[Question] ([idQuestion], [enonce], [media], [points], [idTheme]) VALUES (4, N'JAVA bien?', NULL, CAST(100 AS Decimal(18, 0)), 1)
 GO
 SET IDENTITY_INSERT [dbo].[Question] OFF
 GO
@@ -232,9 +248,21 @@ INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (1, 2)
 GO
 INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (1, 3)
 GO
-INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (2, 5)
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (2, 8)
 GO
-INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (2, 7)
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (2, 9)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (2, 10)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (3, 11)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (3, 12)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (3, 13)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (4, 14)
+GO
+INSERT [dbo].[QuestionProposition] ([idQuestion], [idProposition]) VALUES (4, 15)
 GO
 SET IDENTITY_INSERT [dbo].[QuestionTirage] ON 
 
@@ -243,13 +271,23 @@ INSERT [dbo].[QuestionTirage] ([idQuestionTirage], [idEpreuve], [idQuestion], [e
 GO
 INSERT [dbo].[QuestionTirage] ([idQuestionTirage], [idEpreuve], [idQuestion], [estMarquee], [numOrdre]) VALUES (2, 4, 2, 1, 2)
 GO
+INSERT [dbo].[QuestionTirage] ([idQuestionTirage], [idEpreuve], [idQuestion], [estMarquee], [numOrdre]) VALUES (4, 4, 3, 0, 3)
+GO
+INSERT [dbo].[QuestionTirage] ([idQuestionTirage], [idEpreuve], [idQuestion], [estMarquee], [numOrdre]) VALUES (5, 4, 4, 0, 4)
+GO
+INSERT [dbo].[QuestionTirage] ([idQuestionTirage], [idEpreuve], [idQuestion], [estMarquee], [numOrdre]) VALUES (7, 6, 1, 0, 1)
+GO
+INSERT [dbo].[QuestionTirage] ([idQuestionTirage], [idEpreuve], [idQuestion], [estMarquee], [numOrdre]) VALUES (8, 6, 2, 0, 2)
+GO
 SET IDENTITY_INSERT [dbo].[QuestionTirage] OFF
 GO
 INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (1, 1, 1)
 GO
-INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (2, 7, 2)
-GO
 INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (1, 3, 1)
+GO
+INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (2, 8, 2)
+GO
+INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (4, 13, 3)
 GO
 SET IDENTITY_INSERT [dbo].[SectionTest] ON 
 
@@ -263,11 +301,9 @@ GO
 SET IDENTITY_INSERT [dbo].[Test] ON 
 
 GO
-INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (1, N'test1', N'le premier test', 20, CAST(20 AS Decimal(18, 0)), CAST(10 AS Decimal(18, 0)))
+INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (1, N'Test JAVA', N'Test des skills de JAVA', 10, CAST(160 AS Decimal(18, 0)), CAST(80 AS Decimal(18, 0)))
 GO
-INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (2, N'test2', N'le second test', 120, CAST(30 AS Decimal(18, 0)), CAST(20 AS Decimal(18, 0)))
-GO
-INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (3, N'test3', N'le troisième test', 80, CAST(2 AS Decimal(18, 0)), CAST(1 AS Decimal(18, 0)))
+INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (2, N'Test PHP', N'Test des skills de PHP', 20, CAST(200 AS Decimal(18, 0)), CAST(100 AS Decimal(18, 0)))
 GO
 SET IDENTITY_INSERT [dbo].[Test] OFF
 GO
@@ -324,8 +360,4 @@ REFERENCES [dbo].[Test] ([idTest])
 GO
 ALTER TABLE [dbo].[SectionTest]  WITH CHECK ADD FOREIGN KEY([idTheme])
 REFERENCES [dbo].[Theme] ([idTheme])
-GO
-USE [master]
-GO
-ALTER DATABASE [javaQCM] SET  READ_WRITE 
 GO
