@@ -20,17 +20,41 @@
 
 	<div class="page-wrapper">
 		<div class="page-content container-fluid">
-			<div class="row">
-				
-				<br/> Points obtenu: ${total} (${minutesRestantes} minutes restantes)
-				
+			<div class="container">
+			<c:if test="${total > epreuve.test.seuilHaut }">
+				<h1 class="text-center text-success"> TU AS REUSSI!</h1>
+			</c:if>
+			<c:if test="${total >= epreuve.test.seuilBas && total <= epreuve.test.seuilHaut }">
+				<h1 class="text-center text-warning"> TU AS PRESQUE REUSSI!</h1>
+			</c:if>
+			<c:if test="${total < epreuve.test.seuilBas }">
+				<h1 class="text-center text-danger"> TU N'AS PAS REUSSI!</h1>
+			</c:if>
+			<table class="table table-bordered text-center">
+				<thead>
+					<tr>
+						<th> Question</th>
+						<th> Nombre de points</th>
+					</tr>
+				</thead>
+				<tbody>
 				<c:forEach items="${ resultats }" var="resultat">
-				
-					
-					<br/> ${ resultat.key.getEnonce() }  ->   ${ resultat.value }
-				
+					<c:if test="${ resultat.value }">
+						<tr class="bg-success">
+							<td>${ resultat.key.getEnonce() }</td>
+							<td>${ resultat.key.getPoints() }</td>
+						</tr>
+					</c:if>
+					<c:if test="${ !resultat.value }">
+						<tr class="bg-danger">
+							<td>${ resultat.key.getEnonce() }</td>
+							<td>${ resultat.key.getPoints() }</td>
+						</tr>
+					</c:if>
 				</c:forEach>
-				
+				</tbody>
+			</table>
+			<h3> Points obtenu: <b>${total}</b> / ${ totalEpreuve }</h3>
 			</div>
 		</div>
 		

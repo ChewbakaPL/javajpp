@@ -100,14 +100,14 @@ img {
 #clockdiv > div{
 	padding: 10px;
 	border-radius: 3px;
-	background: #00BF96;
+	background: #000000;
 	display: inline-block;
 }
 
 #clockdiv div > span{
 	padding: 15px;
 	border-radius: 3px;
-	background: #00816A;
+	background: #007bff;
 	display: inline-block;
 }
 
@@ -116,3 +116,10 @@ img {
 	font-size: 16px;
 }
 /***** END CLOCK TIMER *******/
+
+
+#clockdiv {
+	position: absolute;
+    right: -130px;
+    top: -170px;
+}
