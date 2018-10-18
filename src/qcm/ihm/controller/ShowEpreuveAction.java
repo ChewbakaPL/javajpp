@@ -1,8 +1,13 @@
 package qcm.ihm.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +37,14 @@ public class ShowEpreuveAction extends GenericServlet {
     		List<Question> randomQuestions =  new ArrayList<Question>();
     		
 			Epreuve epreuve = epreuveDao.selectById(paramId);
+			epreuve.setDateDebutTest(this.getCurrentTimestamp());
+			epreuveDao.update(epreuve);
+			epreuve = epreuveDao.selectById(epreuve.getIdEpreuve());
+			
+			
+			System.out.println("Date debut test enregistré:");
+			System.out.println(epreuve.getDateDebutTest());
+			
 			
 			/*
 			//==== GENERATION questionTirages => a inserer en bdd =====

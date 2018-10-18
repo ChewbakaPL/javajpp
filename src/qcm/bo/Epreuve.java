@@ -1,5 +1,6 @@
 package qcm.bo;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Epreuve {
@@ -7,6 +8,7 @@ public class Epreuve {
 	private Integer idEpreuve;
 	private Integer dateDebutValidite;
 	private Integer dateFinValidite;
+	private Timestamp dateDebutTest;
 	private Integer tempsEcoule;
 	private Integer etat;
 	private Double noteObtenu;
@@ -19,6 +21,12 @@ public class Epreuve {
 		super();
 	}
 	
+	public Timestamp getDateDebutTest() {
+		return dateDebutTest;
+	}
+	public void setDateDebutTest(Timestamp dateDebutTest) {
+		this.dateDebutTest = dateDebutTest;
+	}
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}

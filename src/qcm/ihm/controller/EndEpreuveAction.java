@@ -38,6 +38,8 @@ public class EndEpreuveAction extends GenericServlet {
 		} catch (DaoException e) {
 			e.printStackTrace();
 		}
+		
+		Integer minutesRestantes = epreuve.getTest().getDuree() - epreuve.getTempsEcoule();
     	
 		Map<Question,Boolean> resultats = new HashMap<Question,Boolean>();
 		
@@ -79,7 +81,11 @@ public class EndEpreuveAction extends GenericServlet {
 	        totalEpreuve += ((Question)pair.getKey()).getPoints();
 	    }
 	    
-	    Integer minutesRestantes = epreuve.getTest().getDuree() - epreuve.getTempsEcoule();
+	    
+	    //enregistrement des resultat de l'epreuve :
+	    //TODO
+	    
+	    
 	    
     	request.setAttribute("epreuve", epreuve);
     	request.setAttribute("resultats", resultats);

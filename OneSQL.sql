@@ -1,83 +1,7 @@
-USE [master]
-GO
-/****** Object:  Database [javaQCM]    Script Date: 17/10/2018 11:56:39 ******/
-CREATE DATABASE [javaQCM]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'javaQCM', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\DATA\javaQCM.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'javaQCM_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\DATA\javaQCM_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
-GO
-ALTER DATABASE [javaQCM] SET COMPATIBILITY_LEVEL = 120
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [javaQCM].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [javaQCM] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [javaQCM] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [javaQCM] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [javaQCM] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [javaQCM] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [javaQCM] SET AUTO_CLOSE OFF 
-GO
-ALTER DATABASE [javaQCM] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [javaQCM] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [javaQCM] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [javaQCM] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [javaQCM] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [javaQCM] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [javaQCM] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [javaQCM] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [javaQCM] SET  DISABLE_BROKER 
-GO
-ALTER DATABASE [javaQCM] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [javaQCM] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [javaQCM] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [javaQCM] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [javaQCM] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [javaQCM] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [javaQCM] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [javaQCM] SET RECOVERY FULL 
-GO
-ALTER DATABASE [javaQCM] SET  MULTI_USER 
-GO
-ALTER DATABASE [javaQCM] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [javaQCM] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [javaQCM] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [javaQCM] SET TARGET_RECOVERY_TIME = 0 SECONDS 
-GO
-ALTER DATABASE [javaQCM] SET DELAYED_DURABILITY = DISABLED 
-GO
-EXEC sys.sp_db_vardecimal_storage_format N'javaQCM', N'ON'
-GO
+
 USE [javaQCM]
 GO
-/****** Object:  Table [dbo].[Epreuve]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[Epreuve]    Script Date: 18/10/2018 10:10:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -86,6 +10,7 @@ CREATE TABLE [dbo].[Epreuve](
 	[idEpreuve] [int] IDENTITY(1,1) NOT NULL,
 	[dateDebutValidite] [bigint] NULL,
 	[dateFinValidite] [bigint] NULL,
+	[dateDebutTest] [timestamp] NULL,
 	[tempsEcoule] [int] NULL,
 	[etat] [int] NULL,
 	[noteObtenu] [decimal](18, 0) NULL,
@@ -99,7 +24,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Proposition]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[Proposition]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -120,7 +45,7 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[Question]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[Question]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -142,7 +67,7 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[QuestionProposition]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[QuestionProposition]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -153,7 +78,7 @@ CREATE TABLE [dbo].[QuestionProposition](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[QuestionTirage]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[QuestionTirage]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -171,7 +96,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ReponseUtilisateur]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[ReponseUtilisateur]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -183,7 +108,7 @@ CREATE TABLE [dbo].[ReponseUtilisateur](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[SectionTest]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[SectionTest]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -200,7 +125,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Test]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[Test]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -223,7 +148,7 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[Theme]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[Theme]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -242,7 +167,7 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[Utilisateur]    Script Date: 17/10/2018 11:56:39 ******/
+/****** Object:  Table [dbo].[Utilisateur]    Script Date: 18/10/2018 10:10:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -319,6 +244,8 @@ SET IDENTITY_INSERT [dbo].[QuestionTirage] OFF
 GO
 INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (1, 1, 1)
 GO
+INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (2, 7, 2)
+GO
 INSERT [dbo].[ReponseUtilisateur] ([idQuestionTirage], [idProposition], [idQuestion]) VALUES (1, 3, 1)
 GO
 SET IDENTITY_INSERT [dbo].[SectionTest] ON 
@@ -333,11 +260,11 @@ GO
 SET IDENTITY_INSERT [dbo].[Test] ON 
 
 GO
-INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (1, N'test1', N'le premier test', 60, CAST(20 AS Decimal(18, 0)), CAST(10 AS Decimal(18, 0)))
+INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (1, N'test1', N'le premier test', 20, CAST(20 AS Decimal(18, 0)), CAST(10 AS Decimal(18, 0)))
 GO
 INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (2, N'test2', N'le second test', 120, CAST(30 AS Decimal(18, 0)), CAST(20 AS Decimal(18, 0)))
 GO
-INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (3, N'test3', N'le troisième test', 360, CAST(2 AS Decimal(18, 0)), CAST(1 AS Decimal(18, 0)))
+INSERT [dbo].[Test] ([idTest], [libelle], [description], [duree], [seuilHaut], [seuilBas]) VALUES (3, N'test3', N'le troisième test', 80, CAST(2 AS Decimal(18, 0)), CAST(1 AS Decimal(18, 0)))
 GO
 SET IDENTITY_INSERT [dbo].[Test] OFF
 GO

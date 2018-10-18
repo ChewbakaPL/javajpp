@@ -18,13 +18,18 @@ import qcm.common.JdbcTools;
 import qcm.dal.dao.EpreuveDAO;
 
 import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class EpreuveDaoImpl implements EpreuveDAO {
 	
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private static final String SELECT_ALL_QUERY = "SELECT * FROM Epreuve t";
     private static final String SELECT_ONE_QUERY = "SELECT * FROM Epreuve t WHERE t.idEpreuve = ?";
     private static final String SELECT_BY_USER_QUERY = "SELECT * FROM Epreuve t WHERE t.idUtilisateur = ?";
+
+    private static final String UPDATE_QUERY = "UPDATE Epreuve t SET t.dateDebutValidite=:dateDebutValidite, t.dateFinValidite=:dateFinValidite, dateDebutTest=:dateDebutTest, tempsEcoule=:tempsEcoule, etat=:etat, noteObtenu=:noteObtenu, niveauObtenu=:niveauObtenu, idTest=:idTest, idUtilisateur=:idUtilisateur WHERE t.idEpreuve=:idEpreuve";
     
     private static EpreuveDaoImpl instance;
     
@@ -133,6 +138,7 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         object.setIdEpreuve(resultSet.getInt("idEpreuve"));
         object.setDateDebutValidite(resultSet.getInt("dateDebutValidite"));
         object.setDateFinValidite(resultSet.getInt("dateFinValidite"));
+        object.setDateDebutTest(resultSet.getTimestamp("dateDebutTest"));
         object.setTempsEcoule(resultSet.getInt("tempsEcoule"));
         object.setEtat(resultSet.getInt("etat"));
         object.setNoteObtenu(resultSet.getDouble("noteObtenu"));
@@ -145,6 +151,33 @@ public class EpreuveDaoImpl implements EpreuveDAO {
         object.setTest(test);
         return object;
     }
+    
+    
+	@Override
+	public void update(Epreuve object) throws DaoException {
+        // Adding params using MapSqlParameterSource class
+    	MapSqlParameterSource parameters = new MapSqlParameterSource();
+        
+        parameters.addValue("dateDebutValidite", object.getDateDebutValidite())
+        .addValue("dateFinValidite", object.getDateFinValidite())
+        .addValue("dateDebutTest", object.getDateDebutTest())
+        .addValue("tempsEcoule", object.getTempsEcoule())
+        .addValue("etat", object.getEtat())
+        .addValue("noteObtenu", object.getNoteObtenu())
+        .addValue("niveauObtenu", object.getNoteObtenu())
+        .addValue("idTest", object.getTest().getIdTest())
+        .addValue("idUtilisateur", object.getUtilisateur().getIdUtilisateur());
+        
+        
+        int status = namedParameterJdbcTemplate.update(UPDATE_QUERY, parameters); 
+        if(status != 0){
+            System.out.println("User data updated for ID " + object.getIdEpreuve());
+        }else{
+            System.out.println("No User found with ID " + object.getIdEpreuve());
+        }
+	}
+	
+	
 
 
 
@@ -153,10 +186,6 @@ public class EpreuveDaoImpl implements EpreuveDAO {
 		throw new DaoException("NOT IMPLEMENTED");
 	}
 
-	@Override
-	public void update(Epreuve element) throws DaoException {
-		throw new DaoException("NOT IMPLEMENTED");
-	}
 
 	@Override
 	public void delete(Integer id) throws DaoException {
