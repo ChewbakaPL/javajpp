@@ -55,19 +55,27 @@ public class EndEpreuveAction extends GenericServlet {
 				e.printStackTrace();
 			}
 			
+			System.out.println("question "+question.getEnonce());
+			
+			Boolean goodAnswer = true;
 			for(Proposition proposition : propositions){
-				if(proposition.getEstBonne()){
-					Integer idBonneReponse = proposition.getIdProposition();
-					
-					for(ReponseUtilisateur reponse : reponses){
-						if(idBonneReponse == reponse.getIdProposition()){
-							resultats.put(question, true);
-						}else{
-							resultats.put(question, false);
-						}
+				Integer idProposition = proposition.getIdProposition();
+				Boolean userCheckedIt = false;
+				for(ReponseUtilisateur reponse : reponses){
+					if(reponse.getIdProposition() == idProposition){
+						userCheckedIt = true;
 					}
 				}
+				
+				System.out.println("idProposition:"+idProposition+" userCheckedIt:"+ userCheckedIt +" (estBonne:"+ proposition.getEstBonne() +")");
+				if(userCheckedIt != proposition.getEstBonne()){
+					goodAnswer = false;
+				}
 			}
+			
+			System.out.println(" ");
+			
+			resultats.put(question, goodAnswer);
 		}
 		
 		Double total = 0.0;
